@@ -7,6 +7,7 @@ const router = require("./routes");
 const session = require("express-session");
 const { SESSION_SECRET } = require("./constants/env");
 const User = require("./models/User");
+const globalLocals = require("./middlewares/globalLocals");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(
   })
 );
 
+app.use(globalLocals);
 app.use(router);
 
 // catch 404 and forward to error handler
