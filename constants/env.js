@@ -6,7 +6,7 @@ module.exports = {
   HOST: process.env.HOST || "localhost",
   SESSION_SECRET: process.env.SESSION_SECRET || "session-secret",
   DB_USER: process.env.DB_USER || "root",
-  DB_PASSWORD: process.env.DB_PASSWORD || "password",
+  DB_PASSWORD: process.env.DB_PASSWORD,
   DB_NAME: process.env.DB_NAME || "database",
   DB_HOST: process.env.DB_HOST || "localhost",
   DB_DIALECT: process.env.DB_DIALECT || "mysql",
