@@ -12,6 +12,7 @@ function getWeekStartEndDates() {
   return { startDate, endDate };
 }
 
+
 function parseDateTime(dateTime) {
   const date = new Date(dateTime);
   const day = date.getDate();
