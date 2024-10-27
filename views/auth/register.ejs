@@ -1,20 +1,28 @@
-<form class="form">
+<form class="form form-register" action="/register" method="post">
   <h4 class="form__title">Đăng ký</h4>
+  <div class="error">
+    <% if(locals?.error) {%>
+    <div class="alert alert-danger" role="alert">
+      <%= error %>
+    </div>
+    <% } %>
+
+  </div>
   <div class="mb-3">
     <label for="inputEmail" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+    <input type="email" class="form-control js--email" id="inputEmail" aria-describedby="emailHelp" name="email">
   </div>
   <div class="mb-3">
     <label for="inputUsername" class="form-label">Tên đăng nhập</label>
-    <input type="text" class="form-control" id="inputUsername">
+    <input type="text" class="form-control js--username" id="inputUsername" name="username">
   </div>
   <div class="mb-3">
     <label for="inputPassword" class="form-label">Mật khẩu</label>
-    <input type="password" class="form-control" id="inputPassword">
+    <input type="password" class="form-control js--password" id="inputPassword" name="password">
   </div>
   <div class="mb-3">
     <label for="inputConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
-    <input type="password" class="form-control" id="inputConfirmPassword">
+    <input type="password" class="form-control js--confirmPassword" id="inputConfirmPassword">
   </div>
   <p>Bạn đã có tài khoản?<a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"> Đăng nhập</a></p>
   <button type="submit" class="btn btn-primary">Đăng ký</button>

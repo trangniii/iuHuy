@@ -1,12 +1,37 @@
 const authRouter = require("express").Router();
 const { validationResult } = require("express-validator");
 const redirectIfAuthenticated = require("../middlewares/redirectIfAuthenticated");
-const { loginRules } = require("../validators/authRules");
+const { loginRules, registerRules } = require("../validators/authRules");
 const auth = require("../services/AuthService");
 authRouter.get("/login", redirectIfAuthenticated, (_, res) => {
   res.render("auth/login", { title: "Login", css: "loginPage.css" });
 });
 
+authRouter.post(
+  "/register",
+  redirectIfAuthenticated,
+  registerRules(),
+  async (req, res) => {
+    const result = validationResult(req);
+    const locals = {
+      title: "Register",
+      css: "registerPage.css",
+    };
+
+    if (!result.isEmpty()) {
+      locals.error = "Tên đăng nhập, email hoặc mật khẩu không đúng định dạng";
+      return res.render("auth/register", locals);
+    }
+
+    try {
+      await auth.register(req.body.username, req.body.email, req.body.password);
+      res.redirect("/login");
+    } catch (error) {
+      locals.error = "Người dùng đã tồn tại";
+      return res.render("auth/register", locals);
+    }
+  }
+);
 authRouter.post(
   "/login",
   redirectIfAuthenticated,
