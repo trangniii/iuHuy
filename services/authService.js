@@ -15,7 +15,7 @@ const auth = {
 
     if (!user) throw new HttpError(UNAUTHORIZED, "Invalid credentials");
 
-    return user;
+    return user.toJSON();
   },
 
   async register(username, email, password) {
@@ -29,7 +29,7 @@ const auth = {
 
     const user = await User.create({ username, email, password });
 
-    return user;
+    return user.toJSON();
   },
 
   getUserFromSession(session) {
