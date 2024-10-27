@@ -12,7 +12,18 @@ function getWeekStartEndDates() {
   return { startDate, endDate };
 }
 
+function parseDateTime(dateTime) {
+  const date = new Date(dateTime);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  return { day, month, year, hour, minute };
+}
+
 module.exports = {
   getOffsetLimit,
   getWeekStartEndDates,
+  parseDateTime,
 };
