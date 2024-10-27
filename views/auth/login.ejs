@@ -1,1 +1,19 @@
-<h1>Login page</h1>
+<form class="form" id="form-login" action="/login" method="post">
+  <h4 class="form__title">Đăng nhập</h4>
+  <% if(locals?.error) {%>
+  <div class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="mb-3">
+    <label for="inputUsername" class="form-label">Tên đăng nhập</label>
+    <input type="text" class="form-control js--username" id="inputUsername" name="email">
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword" class="form-label">Mật khẩu</label>
+    <input type="password" class="form-control js--password" id="inputPassword" name="password">
+  </div>
+  <p>Bạn chưa có tài khoản?<a href="/register" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"> Đăng ký</a></p>
+  <button type="submit" class="btn btn-primary" form="form-login">Đăng nhập</button>
+</form>
+<script src="/js/pages/loginPage.js"></script>
