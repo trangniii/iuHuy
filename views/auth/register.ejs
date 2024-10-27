@@ -1,1 +1,22 @@
-<h1>Register Page</h1>
+<form class="form">
+  <h4 class="form__title">Đăng ký</h4>
+  <div class="mb-3">
+    <label for="inputEmail" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="inputUsername" class="form-label">Tên đăng nhập</label>
+    <input type="text" class="form-control" id="inputUsername">
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword" class="form-label">Mật khẩu</label>
+    <input type="password" class="form-control" id="inputPassword">
+  </div>
+  <div class="mb-3">
+    <label for="inputConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+    <input type="password" class="form-control" id="inputConfirmPassword">
+  </div>
+  <p>Bạn đã có tài khoản?<a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"> Đăng nhập</a></p>
+  <button type="submit" class="btn btn-primary">Đăng ký</button>
+</form>
+<script src="/js/pages/registerPage.js"></script>
