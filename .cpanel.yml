@@ -1,0 +1,7 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/dunnluvs/node_app
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/chmod -R 755 $DEPLOYPATH
+    - /bin/chown -R dunnluvs:dunnluvs $DEPLOYPATH
+    - echo "Deployment complete"

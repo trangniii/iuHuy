@@ -7,16 +7,19 @@ const router = require("./routes");
 const session = require("express-session");
 const { SESSION_SECRET } = require("./constants/env");
 const User = require("./models/User");
+const expressEjsLayouts = require("express-ejs-layouts");
 const globalLocals = require("./middlewares/globalLocals");
+
 
 const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
+app.set("layout", "layouts/main");
 app.use(logger("dev"));
 app.use(express.json());
+app.use(expressEjsLayouts);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
