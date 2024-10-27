@@ -1,4 +1,4 @@
-const auth = require("../services/AuthService");
+const auth = require("../services/authService");
 
 function globalLocals(req, res, next) {
   const user = auth.getUserFromSession(req.session);

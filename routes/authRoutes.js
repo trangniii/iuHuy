@@ -2,7 +2,7 @@ const authRouter = require("express").Router();
 const { validationResult } = require("express-validator");
 const redirectIfAuthenticated = require("../middlewares/redirectIfAuthenticated");
 const { loginRules, registerRules } = require("../validators/authRules");
-const auth = require("../services/AuthService");
+const auth = require("../services/authService");
 authRouter.get("/login", redirectIfAuthenticated, (_, res) => {
   res.render("auth/login", { title: "Login", css: "loginPage.css" });
 });
