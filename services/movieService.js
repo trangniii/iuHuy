@@ -8,7 +8,6 @@ const MovieDetailDto = require("../models/dto/MovieDetailDto");
 const HttpError = require("../models/HttpError");
 const { NOT_FOUND } = require("../models/enum/HttpCode");
 
-
 const movieService = {
   async getNowShowingMovies({ page, pageSize } = {}, rootPath = "/movies") {
     page = page || 1;
@@ -26,13 +25,11 @@ const movieService = {
     });
 
     return {
-      movies: movies.rows.map((movie) =>
+      movies: movies.rows.map((movie) => {
+        MovieInfoDto.fromMovie(movie.toJSON(), rootPath);
 
-        MovieInfoDto.fromMovie(movie.toJSON(), rootPath)
-
-        MovieInfoDto.fromMovie(movie, rootPath)
-
-      ),
+        MovieInfoDto.fromMovie(movie, rootPath);
+      }),
       total: movies.count,
       totalPages: Math.ceil(movies.count / pageSize),
     };
@@ -55,15 +52,12 @@ const movieService = {
 
     return {
       movies: movies.rows.map((movie) =>
-
         MovieInfoDto.fromMovie(movie.toJSON(), rootPath)
-
       ),
       total: movies.count,
       totalPages: Math.ceil(movies.count / pageSize),
     };
   },
-
 
   async getDetailOfMovie(movieId) {
     const movie = await Movie.findOne({
