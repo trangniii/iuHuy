@@ -25,11 +25,9 @@ const movieService = {
     });
 
     return {
-      movies: movies.rows.map((movie) => {
-        MovieInfoDto.fromMovie(movie.toJSON(), rootPath);
-
-        MovieInfoDto.fromMovie(movie, rootPath);
-      }),
+      movies: movies.rows.map((movie) =>
+        MovieInfoDto.fromMovie(movie.toJSON(), rootPath)
+      ),
       total: movies.count,
       totalPages: Math.ceil(movies.count / pageSize),
     };
