@@ -7,8 +7,9 @@ function getOffsetLimit(page, pageSize) {
 }
 
 function getWeekStartEndDates() {
-  const startDate = startOfWeek(new Date(), { weekStartsOn: 1 });
-  const endDate = endOfWeek(new Date(), { weekStartsOn: 1 });
+  const date = new Date();
+  const startDate = startOfWeek(date);
+  const endDate = endOfWeek(date);
   return { startDate, endDate };
 }
 
