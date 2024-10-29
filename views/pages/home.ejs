@@ -32,15 +32,7 @@
   <div class="container text-center">
     <div class="row row-cols-4 g-4">
       <% for( let i = 0; i < nowMovies.length && i < 8; i++ ) { %>
-      <div class="col d-flex justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <img src="<%= nowMovies[i].posterUrl %>" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text d-flex justify-content-between"><%= nowMovies[i].genre %> <span><%= nowMovies[i].releaseDate %></span></p>
-            <h5 class="card-title"><%= nowMovies[i].title %></h5>
-          </div>
-        </div>
-      </div>
+      <%- include('../components/movie-card', {movie: nowMovies[i]}) %>
       <% } %>
     </div>
   </div>
@@ -58,15 +50,7 @@
   <div class="container text-center">
     <div class="row row-cols-4 g-4">
       <% for( let i = 0; i < upComingMovies.length && i < 8; i++ ) { %>
-      <div class="col d-flex justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <img src="<%= upComingMovies[i].posterUrl %>" class="card-img-top" alt="...">
-          <div class="card-body">
-            <p class="card-text d-flex justify-content-between"><%= upComingMovies[i].genre %> <span><%= upComingMovies[i].releaseDate %></span></p>
-            <h5 class="card-title"><%= upComingMovies[i].title %></h5>
-          </div>
-        </div>
-      </div>
+      <%- include('../components/movie-card', {movie: upComingMovies[i]}) %>
       <% } %>
     </div>
   </div>

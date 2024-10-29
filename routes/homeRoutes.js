@@ -4,11 +4,13 @@ const { formatDateMonth } = require("../utils/utils");
 const homeRouter = require("express").Router();
 
 homeRouter.get("/", async (req, res) => {
-  const nowMovies = await movieService.getNowShowingMovies();
+  const [nowMovies, upComingMovies] = await Promise.all([
+    movieService.getNowShowingMovies(),
+    movieService.getUpcomingMovies(),
+  ]);
   nowMovies.movies.forEach((element) => {
     element.releaseDate = formatDateMonth(element.releaseDate);
   });
-  const upComingMovies = await movieService.getUpcomingMovies();
   upComingMovies.movies.forEach((element) => {
     element.releaseDate = formatDateMonth(element.releaseDate);
   });
