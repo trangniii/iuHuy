@@ -1,3 +1,22 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<% 
+  const [firstNo, secondNo, thirdNo] = error?.status ? error.status.toString().split('') : [5,0,0]
+%>
+<section class="py-3 py-md-5 min-vh-100 d-flex justify-content-center align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="text-center">
+          <h2 class="d-flex justify-content-center align-items-center gap-2 mb-4">
+            <span class="display-1 fw-bold"><%= firstNo %></span>
+            <span class="display-1 fw-bold bsb-flip-h"><%= secondNo %></span>
+            <span class="display-1 fw-bold"><%= thirdNo %></span>
+          </h2>
+          <h3 class="h2 mb-2">Oops! </h3>
+          <p class="mb-5"><%= message %></p>
+          <a class="btn btn-dark" href="/" role="button">Back to Home</a>
+          <pre class="mt-5"><%= error.stack %></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -10,7 +10,6 @@ const User = require("./models/User");
 const expressEjsLayouts = require("express-ejs-layouts");
 const globalLocals = require("./middlewares/globalLocals");
 
-
 const app = express();
 
 // view engine setup
@@ -43,11 +42,19 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error =
+    req.app.get("env") === "development"
+      ? err
+      : {
+          status: err?.status || 500,
+          message: err?.status === 404 ? "Not Found" : "Internal Server Error",
+        };
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error", {
+    layout: "layouts/non-header",
+  });
 });
 
 module.exports = app;
