@@ -18,6 +18,7 @@ homeRouter.get("/", async (req, res) => {
     title: "Home Page",
     nowMovies: nowMovies.movies,
     upComingMovies: upComingMovies.movies,
+    css: "homePage.css",
   });
 });
 

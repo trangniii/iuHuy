@@ -5,9 +5,6 @@ movieRouter.get("/:id", async (req, res, next) => {
   const movieId = req.params.id;
   try {
     const movieDetail = await movieService.getDetailOfMovie(movieId);
-
-    console.log(JSON.stringify(movieDetail, null, 2));
-
     const locals = {
       css: "movieDetail.css",
       ...movieDetail.getDataForView(),

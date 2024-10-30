@@ -10,6 +10,14 @@
   margin-top: 70px;
 }
 
+.w-full {
+  width: 100%;
+}
+
 .max-w-md {
   max-width: 992px;
+}
+
+.max-w-sm {
+  max-width: 576px;
 }
