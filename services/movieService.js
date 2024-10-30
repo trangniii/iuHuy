@@ -70,7 +70,6 @@ const movieService = {
       ],
     });
     if (!movie) throw new HttpError(NOT_FOUND, "Movie not found");
-
     return new MovieDetailDto(movie.toJSON());
   },
 };
