@@ -1,0 +1,23 @@
+<section class="container-md pt-3 max-w-md">
+  <div class="row">
+    <div class="col-lg-3">
+      <img class="img-fluid movie-poster" src="<%= posterUrl %>" alt="<%= title %>">
+    </div>
+    <div class="col-lg-9">
+      <h4 class="fw-bold text-uppercase"><%= title %></h4>
+      <div class="row">
+        <div class="col-sm-3">Khởi chiếu: </div>
+        <div class="col-sm-9"><%= releaseDate %></div>
+
+        <div class="col-sm-3">Thời lượng: </div>
+        <div class="col-sm-9"><%= duration %></div>
+        <div class="col-sm-12 mt-4">
+          <p><%= description %></p>
+        </div>
+        <div class="col-sm-12">
+          <a target="_blank" href="https://www.youtube.com/results?search_query=<%= title %>" class="btn btn-primary">Xem trailer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

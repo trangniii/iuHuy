@@ -1,4 +1,9 @@
-const { parseDateTime } = require("../../utils/utils");
+const { limitText } = require("../../utils/text");
+const {
+  parseDateTime,
+  formatDateMonth,
+  formatDuration,
+} = require("../../utils/utils");
 
 class ShowTimeItemDto {
   day;
@@ -66,6 +71,25 @@ class MovieDetailDto {
         dateToShow.times.push({ hour: dto.hour, minute: dto.minute });
       }
     });
+  }
+
+  getDataForView() {
+    return {
+      ...this,
+      dates: this.dates.map((date) => {
+        return {
+          ...date,
+          times: date.times.map((time) => {
+            return `${time.hour}:${time.minute}`;
+          }),
+        };
+      }),
+      releaseDate: formatDateMonth(
+        `${this.releaseDate.year}-${this.releaseDate.month}-${this.releaseDate.day}`
+      ),
+      duration: formatDuration(this.duration),
+      description: limitText(this.description, 500),
+    };
   }
 }
 

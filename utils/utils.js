@@ -33,9 +33,16 @@ function formatDateMonth(inputDate) {
     .padStart(2, "0")}/${year}`;
 }
 
+function formatDuration(duration) {
+  const hours = Math.floor(duration / 60);
+  const minutes = duration % 60;
+  return `${hours}h ${minutes}m`;
+}
+
 module.exports = {
   getOffsetLimit,
   getWeekStartEndDates,
   parseDateTime,
   formatDateMonth,
+  formatDuration,
 };
