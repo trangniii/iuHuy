@@ -9,3 +9,7 @@
 .mt-70 {
   margin-top: 70px;
 }
+
+.max-w-md {
+  max-width: 992px;
+}

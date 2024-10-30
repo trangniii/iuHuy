@@ -1,0 +1,65 @@
+<% 
+  function isFirst(index, trueValue, falseValue ='') {
+    return index === 0 ? trueValue : falseValue;
+  }
+%>
+<section class="container-md pt-3 max-w-md">
+  <div class="row">
+    <div class="col-lg-3">
+      <img class="img-fluid movie-poster" src="<%= posterUrl %>" alt="<%= title %>">
+    </div>
+    <div class="col-lg-9">
+      <h4 class="fw-bold text-uppercase"><%= title %></h4>
+      <div class="row">
+        <div class="col-sm-3">Khởi chiếu: </div>
+        <div class="col-sm-9"><%= releaseDate %></div>
+
+        <div class="col-sm-3">Thời lượng: </div>
+        <div class="col-sm-9"><%= duration %></div>
+
+        <div class="col-sm-3">Thể loại: </div>
+        <div class="col-sm-9"><%= genre %></div>
+
+        <div class="col-sm-12 mt-4">
+          <p><%= description %></p>
+        </div>
+        <div class="col-sm-12">
+          <a target="_blank" href="https://www.youtube.com/results?search_query=<%= title %>" class="btn btn-primary">Xem trailer</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 mt-5 ">
+      <h3 class="mb-4">Lịch chiếu phim</h3>
+
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <% dates.forEach((date, index) => { %>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link <%= isFirst(index, 'active')  %>" id="pills-tab-<%= index  %>" data-bs-toggle="pill" data-bs-target="#pills-<%= index %>" type="button" role="tab" aria-controls="pills-home" aria-selected="true"><%= date.dateString %></button>
+        </li>
+        <% }) %>
+      </ul>
+
+      <% if (dates.length) { %>
+      <div class="tab-content" id="pills-tabContent">
+        <% dates.forEach((date, index) => { %>
+        <div class="tab-pane fade <%= isFirst(index, 'show active') %>" id="pills-<%= index %>" role="tabpanel" aria-labelledby="pills-tab<%= index %>" tabindex="0">
+          <div class="row">
+            <% date.times.forEach((time) => { %>
+            <div class="col-3">
+              <a href="/booking/<%= time.id %>" class="btn btn-outline-primary w-100"><%= time.timeString %></a>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <div class="no-data text-center py-4">
+        <i class="bi bi-emoji-frown" style="font-size: 2rem;"></i>
+        <p>Không có dữ liệu</p>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,9 @@
-const { parseDateTime } = require("../../utils/utils");
+const { limitText } = require("../../utils/text");
+const {
+  parseDateTime,
+  formatDateMonth,
+  formatDuration,
+} = require("../../utils/utils");
 
 class ShowTimeItemDto {
   day;
@@ -6,8 +11,12 @@ class ShowTimeItemDto {
   year;
   hour;
   minute;
-  constructor(startTime) {
-    const { day, hour, minute, month, year } = parseDateTime(startTime);
+  id;
+  constructor(showTime) {
+    const { day, hour, minute, month, year } = parseDateTime(
+      showTime.startTime
+    );
+    this.id = showTime.id;
     this.day = day;
     this.month = month;
     this.year = year;
@@ -41,7 +50,7 @@ class MovieDetailDto {
     Object.assign(this, movie);
     this.releaseDate = parseDateTime(releaseDate);
     Showtimes.filter(Boolean).forEach((showTime) => {
-      const dto = new ShowTimeItemDto(showTime.startTime);
+      const dto = new ShowTimeItemDto(showTime);
       let dateToShow = this.dates.find(
         (date) =>
           date.day === dto.day &&
@@ -59,13 +68,42 @@ class MovieDetailDto {
       }
 
       const notExistsTime = !dateToShow.times.find(
-        (time) => time.hour === dto.hour && time.minute === dto.minute
+        (time) => time.id === dto.id
       );
 
       if (notExistsTime) {
-        dateToShow.times.push({ hour: dto.hour, minute: dto.minute });
+        dateToShow.times.push({
+          hour: dto.hour,
+          minute: dto.minute,
+          id: dto.id,
+        });
       }
     });
+  }
+
+  getDataForView() {
+    return {
+      ...this,
+      dates: this.dates.map((date) => {
+        return {
+          ...date,
+          dateString: formatDateMonth(`${date.year}-${date.month}-${date.day}`),
+          times: date.times.map((time) => {
+            return {
+              ...time,
+              timeString: `${time.hour}:${time.minute
+                .toString()
+                .padStart(2, "0")}`,
+            };
+          }),
+        };
+      }),
+      releaseDate: formatDateMonth(
+        `${this.releaseDate.year}-${this.releaseDate.month}-${this.releaseDate.day}`
+      ),
+      duration: formatDuration(this.duration),
+      description: limitText(this.description, 500),
+    };
   }
 }
 
