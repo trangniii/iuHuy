@@ -16,6 +16,17 @@ class ShowTimeItemDto {
   }
 }
 
+class DateToShowTimeDto {
+  day;
+  month;
+  year;
+  times = [];
+
+  constructor(dateToShow = {}) {
+    Object.assign(this, dateToShow);
+  }
+}
+
 class MovieDetailDto {
   id;
   title;
@@ -24,16 +35,40 @@ class MovieDetailDto {
   genre;
   releaseDate;
   posterUrl;
-  showTimes = [];
+  dates = [];
   constructor(data = {}) {
     const { Showtimes, releaseDate, ...movie } = data;
     Object.assign(this, movie);
     this.releaseDate = parseDateTime(releaseDate);
-    this.showTimes = Showtimes.filter(Boolean).map(
-      (showTime) => new ShowTimeItemDto(showTime.startTime)
-    );
+    Showtimes.filter(Boolean).forEach((showTime) => {
+      const dto = new ShowTimeItemDto(showTime.startTime);
+      let dateToShow = this.dates.find(
+        (date) =>
+          date.day === dto.day &&
+          date.month === dto.month &&
+          date.year === dto.year
+      );
+
+      if (!dateToShow) {
+        dateToShow = new DateToShowTimeDto({
+          day: dto.day,
+          month: dto.month,
+          year: dto.year,
+        });
+        this.dates.push(dateToShow);
+      }
+
+      const notExistsTime = !dateToShow.times.find(
+        (time) => time.hour === dto.hour && time.minute === dto.minute
+      );
+
+      if (notExistsTime) {
+        dateToShow.times.push({ hour: dto.hour, minute: dto.minute });
+      }
+    });
   }
 }
 
 module.exports = MovieDetailDto;
 exports.ShowTimeItemDto = ShowTimeItemDto;
+exports.DateToShowTimeDto = DateToShowTimeDto;
