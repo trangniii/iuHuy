@@ -1,4 +1,4 @@
-const CinemaHall = require("./CenimaHall");
+const CinemaHall = require("./CinemaHall");
 const Movie = require("./Movie");
 const Payment = require("./Payment");
 const Revenue = require("./Revenue");
