@@ -12,10 +12,9 @@ const hallService = {
       include: [CinemaHall],
     });
 
-    if (!showtime) throw new HttpError(NOT_FOUND, "Showtime not found");
-    return showtime.CinemaHall
-      ? new CinemaHallDto(showtime.CinemaHall.toJSON())
-      : null;
+    if (!showtime || !showtime?.CinemaHall)
+      throw new HttpError(NOT_FOUND, "Showtime not found");
+    return new CinemaHallDto(showtime.CinemaHall.toJSON());
   },
 
   async getInfoOfHallWithShowtime(showtimeId) {
