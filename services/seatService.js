@@ -5,7 +5,7 @@ const priceService = require("./priceService");
 
 const seatService = {
   async generateSeatsForHall({ seatRows, seatColumns, id }) {
-    const seatsBooked = await this.getSeatsOfHall(id);
+    const seatsBooked = await this.getSeatsBooked(id);
     const prices = await priceService.getPrices();
     const seats = [];
 
@@ -17,10 +17,7 @@ const seatService = {
           name: getAlphabetChar(i) + (j + 1),
           price: priceService.calculatePriceOfSeat(prices, i + 1),
           status: seatsBooked.some(
-            (seat) =>
-              seat.row === i + 1 &&
-              seat.number === j + 1 &&
-              seat.status === BOOKED
+            (seat) => seat.row === i + 1 && seat.number === j + 1
           )
             ? BOOKED
             : AVAILABLE,
