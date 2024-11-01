@@ -17,4 +17,4 @@ const showtimeService = {
   },
 };
 
-module.expors = showtimeService;
+module.exports = showtimeService;
