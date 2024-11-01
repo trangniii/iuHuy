@@ -50,7 +50,9 @@ const seatService = {
       },
     });
 
-    return seat?.status === AVAILABLE;
+    if (seat) return true;
+
+    return seat.toJSON().status !== BOOKED;
   },
 
   async getSeatsOfHall(hallId) {
