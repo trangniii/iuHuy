@@ -24,6 +24,7 @@ function parseDateTime(dateTime) {
 }
 
 function formatDateMonth(inputDate) {
+  if (!inputDate) return "";
   const date = new Date(inputDate);
   const day = date.getDate();
   const month = date.getMonth() + 1;
