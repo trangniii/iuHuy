@@ -15,13 +15,19 @@ const movieService = {
     const { offset, limit } = getOffsetLimit(page, pageSize);
     const { endDate, startDate } = getWeekStartEndDates();
     const movies = await Movie.findAndCountAll({
-      where: {
-        releaseDate: {
-          [Op.between]: [startDate, endDate],
-        },
-      },
       offset,
       limit,
+      include: [
+        {
+          model: Showtime,
+          where: {
+            startTime: {
+              [Op.between]: [startDate, endDate],
+            },
+          },
+          attributes: ["id", "startTime"],
+        },
+      ],
     });
 
     return {
@@ -39,11 +45,16 @@ const movieService = {
     const { offset, limit } = getOffsetLimit(page, pageSize);
     const { endDate } = getWeekStartEndDates();
     const movies = await Movie.findAndCountAll({
-      where: {
-        releaseDate: {
-          [Op.gt]: endDate,
+      include: [
+        {
+          model: Showtime,
+          where: {
+            startTime: {
+              [Op.gt]: endDate,
+            },
+          },
         },
-      },
+      ],
       offset,
       limit,
     });
