@@ -41,6 +41,18 @@ const seatService = {
     return seats.map((seat) => seat.toJSON());
   },
 
+  async isSeatValid(hallId, row, number) {
+    const seat = await Seat.findOne({
+      where: {
+        cinemaHallId: hallId,
+        row,
+        number,
+      },
+    });
+
+    return seat?.status === AVAILABLE;
+  },
+
   async getSeatsOfHall(hallId) {
     const seats = await Seat.findAll({
       where: {
