@@ -1,6 +1,7 @@
 const CinemaHall = require("./CinemaHall");
 const Movie = require("./Movie");
 const Payment = require("./Payment");
+const PriceOfSeat = require("./PriceOfSeat");
 const Revenue = require("./Revenue");
 const Seat = require("./Seat");
 const Showtime = require("./Showtime");
