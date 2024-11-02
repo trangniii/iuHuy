@@ -6,6 +6,7 @@ const Payment = require("./models/Payment");
 const Seat = require("./models/Seat");
 const Showtime = require("./models/Showtime");
 const Ticket = require("./models/Ticket");
+const hallService = require("./services/hallService");
 const paymentService = require("./services/paymentService");
 const ticketService = require("./services/ticketService");
 const sequelize = require("./utils/database");
@@ -50,9 +51,13 @@ async function bootstrap() {
   //   })
   // );
 
-  const payment = await paymentService.getPaymentInfo(1, 30);
+  // const payment = await paymentService.getPaymentInfo(1, 30);
 
-  log(payment);
+  // log(payment);
+
+  const hall = await hallService.getInfoOfHallWithShowtime(3);
+
+  log(hall);
 }
 
 function log(data) {
