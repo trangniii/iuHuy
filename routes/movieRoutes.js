@@ -49,7 +49,8 @@ movieRouter.get("/booking/:id", (req, res) => {
   }, {});
 
   res.render("pages/seat", {
-    seats: groupedByRow
+    seats: groupedByRow,
+    css: "seat.css",
   });
 });
 

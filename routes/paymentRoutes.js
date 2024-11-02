@@ -20,7 +20,7 @@ paymentRouter.get("/booking/:id", mustLogin, async (req, res, next) => {
   const showtimeId = req.params.id;
   try {
     const info = await hallService.getInfoOfHallWithShowtime(showtimeId);
-    res.render("pages/seat", { hallInfo: info });
+    res.render("pages/seat", { hallInfo: info, css: "seat.css" });
   } catch (error) {
     next(error);
   }
