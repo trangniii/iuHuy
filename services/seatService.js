@@ -98,12 +98,10 @@ const seatService = {
   },
   validSeat(hall, row, number) {
     return (
-      (row >= 1 &&
-        row <= hall.seatRows &&
-        number >= 1 &&
-        number <= hall.seatColumns) ||
-      row === 0 ||
-      number === 0
+      row >= 1 &&
+      row <= hall.seatRows &&
+      number >= 1 &&
+      number <= hall.seatColumns
     );
   },
 
