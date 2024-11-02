@@ -27,6 +27,7 @@ const ticketService = {
   },
 
   async bookTicket(userId, showtimeId, seats = []) {
+    if (seats && !Array.isArray(seats)) seats = [seats];
     const [user, showtime, prices = []] = await Promise.all([
       User.findByPk(userId),
       showtimeService.getShowtimeById(showtimeId),

@@ -9,7 +9,6 @@ const Payment = sequelize.define("Payment", {
     autoIncrement: true,
     allowNull: false,
   },
-  ticketId: { type: DataTypes.INTEGER, allowNull: false },
   amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
   paymentMethod: { type: DataTypes.STRING(50), allowNull: false },
   status: {

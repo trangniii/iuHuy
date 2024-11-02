@@ -14,7 +14,7 @@ function setupAssociations() {
   CinemaHall.hasMany(Showtime, { foreignKey: "cinemaHallId" });
   Movie.hasMany(Showtime, { foreignKey: "movieId" });
   Movie.hasMany(Revenue, { foreignKey: "movieId" });
-  Payment.belongsTo(Ticket, { foreignKey: "ticketId" });
+  Payment.hasMany(Ticket, { foreignKey: "paymentId" });
   Revenue.belongsTo(Movie, { foreignKey: "movieId" });
   Seat.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
   Seat.hasMany(Ticket, { foreignKey: "seatId" });
@@ -27,7 +27,7 @@ function setupAssociations() {
   Ticket.belongsTo(User, { foreignKey: "userId" });
   Ticket.belongsTo(Showtime, { foreignKey: "showtimeId" });
   Ticket.belongsTo(Seat, { foreignKey: "seatId" });
-  Ticket.hasOne(Payment, { foreignKey: "ticketId" });
+  Ticket.belongsTo(Payment, { foreignKey: "paymentId" });
 }
 
 module.exports = {
