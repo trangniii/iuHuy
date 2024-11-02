@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { NOT_FOUND } = require("../models/enum/HttpCode");
 const { CASH } = require("../models/enum/PaymentMethod");
 const { PENDING, COMPLETED } = require("../models/enum/PaymentStatus");
@@ -7,26 +8,58 @@ const Ticket = require("../models/Ticket");
 const seatService = require("./seatService");
 
 const paymentService = {
-  async createPayment({ ticketId, amount, paymentMethod, status }) {
+  async createPayment({ amount, paymentMethod, status }) {
     return Payment.create({
-      ticketId,
       amount,
       paymentMethod: paymentMethod || CASH,
       status: status || PENDING,
     });
   },
 
-  async payTicket(ticketId, amount, paymentMethod) {
-    const ticket = await Ticket.findByPk(ticketId);
-    if (!ticket) throw new HttpError(NOT_FOUND, "Ticket not found");
-    await seatService.makeSeatBooked(ticket.dataValues.seatId);
+  async payTickets(ticketIds = [], paymentMethod) {
+    if (!Array.isArray(ticketIds)) ticketIds = [ticketIds];
+    const tickets = await Ticket.findAll({
+      where: {
+        id: {
+          [Op.in]: ticketIds,
+        },
+      },
+    });
 
-    return this.createPayment({
-      ticketId,
+    if (tickets.length === 0)
+      throw new HttpError(NOT_FOUND, "Tickets not found");
+
+    const amount = tickets.reduce(
+      (total, ticket) => total + ticket.dataValues.price,
+      0
+    );
+
+    const payment = await this.createPayment({
       amount,
       paymentMethod,
       status: COMPLETED,
     });
+
+    await Ticket.update(
+      {
+        paymentId: payment.dataValues.id,
+      },
+      {
+        where: {
+          id: {
+            [Op.in]: ticketIds,
+          },
+        },
+      }
+    );
+
+    await Promise.all(
+      tickets.map((ticket) =>
+        seatService.makeSeatBooked(ticket.dataValues.seatId)
+      )
+    );
+
+    return payment;
   },
 };
 module.exports = paymentService;

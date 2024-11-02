@@ -12,7 +12,11 @@ const Ticket = sequelize.define("Ticket", {
   showtimeId: { type: DataTypes.INTEGER, allowNull: false },
   seatId: { type: DataTypes.INTEGER, allowNull: false },
   price: { type: DataTypes.DECIMAL(20, 0), allowNull: false },
-  bookingTime: { type: DataTypes.TIME, allowNull: false },
+  bookingTime: {
+    type: DataTypes.TIME,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
 });
 
 module.exports = Ticket;
