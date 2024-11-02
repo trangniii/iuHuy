@@ -1,3 +1,5 @@
+const { formatDateMonth } = require("../../utils/utils");
+
 class MovieInfoDto {
   id;
   title;
@@ -5,8 +7,9 @@ class MovieInfoDto {
   posterUrl;
   genre;
   url;
+  startTime;
   constructor(movie = {}) {
-    const { id, title, releaseDate, posterUrl, genre, url } = movie;
+    const { id, title, releaseDate, posterUrl, genre, url, Showtimes } = movie;
     Object.assign(this, {
       id,
       title,
@@ -14,6 +17,7 @@ class MovieInfoDto {
       posterUrl,
       genre,
       url,
+      startTime: formatDateMonth(Showtimes?.[0]?.startTime),
     });
   }
 

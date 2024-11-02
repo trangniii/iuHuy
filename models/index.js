@@ -1,36 +1,47 @@
 const CinemaHall = require("./CinemaHall");
 const Movie = require("./Movie");
 const Payment = require("./Payment");
+const PriceOfSeat = require("./PriceOfSeat");
 const Revenue = require("./Revenue");
 const Seat = require("./Seat");
 const Showtime = require("./Showtime");
 const Ticket = require("./Ticket");
-const TicketReservation = require("./TicketReservation");
 const User = require("./User");
 
 function setupAssociations() {
-  User.hasMany(Ticket, { foreignKey: "userId" });
-  User.hasMany(TicketReservation, { foreignKey: "userId" });
-  CinemaHall.hasMany(Seat, { foreignKey: "cinemaHallId" });
+  User.hasMany(Ticket, { foreignKey: "userId", onDelete: "CASCADE" });
+  User.hasMany(Payment, { foreignKey: "userId" });
+  CinemaHall.hasMany(Seat, { foreignKey: "cinemaHallId", onDelete: "CASCADE" });
   CinemaHall.hasMany(Showtime, { foreignKey: "cinemaHallId" });
   Movie.hasMany(Showtime, { foreignKey: "movieId" });
   Movie.hasMany(Revenue, { foreignKey: "movieId" });
-  Payment.belongsTo(Ticket, { foreignKey: "ticketId" });
+  Payment.hasMany(Ticket, { foreignKey: "paymentId" });
+  Payment.belongsTo(User, { foreignKey: "userId" });
   Revenue.belongsTo(Movie, { foreignKey: "movieId" });
   Seat.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
   Seat.hasMany(Ticket, { foreignKey: "seatId" });
-  Seat.hasMany(TicketReservation, { foreignKey: "seatId" });
   Showtime.belongsTo(Movie, { foreignKey: "movieId" });
-  Showtime.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
+  Showtime.belongsTo(CinemaHall, {
+    foreignKey: "cinemaHallId",
+    onDelete: "CASCADE",
+  });
   Showtime.hasMany(Ticket, { foreignKey: "showtimeId" });
-  Showtime.hasMany(TicketReservation, { foreignKey: "showtimeId" });
   Ticket.belongsTo(User, { foreignKey: "userId" });
-  Ticket.belongsTo(Showtime, { foreignKey: "showtimeId" });
-  Ticket.belongsTo(Seat, { foreignKey: "seatId" });
-  Ticket.hasOne(Payment, { foreignKey: "ticketId" });
-  TicketReservation.belongsTo(User, { foreignKey: "userId" });
-  TicketReservation.belongsTo(Showtime, { foreignKey: "showtimeId" });
-  TicketReservation.belongsTo(Seat, { foreignKey: "seatId" });
+  Ticket.belongsTo(Showtime, {
+    foreignKey: "showtimeId",
+    onDelete: "CASCADE",
+    hooks: true,
+  });
+  Ticket.belongsTo(Seat, {
+    foreignKey: "seatId",
+    onDelete: "CASCADE",
+    hooks: true,
+  });
+  Ticket.belongsTo(Payment, {
+    foreignKey: "paymentId",
+    onDelete: "CASCADE",
+    hooks: true,
+  });
 }
 
 module.exports = {

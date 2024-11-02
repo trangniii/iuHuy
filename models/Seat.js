@@ -12,7 +12,11 @@ const Seat = sequelize.define("Seat", {
   cinemaHallId: { type: DataTypes.INTEGER, allowNull: false },
   row: { type: DataTypes.INTEGER, allowNull: false },
   number: { type: DataTypes.INTEGER, allowNull: false },
-  status: { type: DataTypes.ENUM(AVAILABLE, BOOKED), allowNull: false },
+  status: {
+    type: DataTypes.ENUM(AVAILABLE, BOOKED),
+    allowNull: false,
+    defaultValue: AVAILABLE,
+  },
 });
 
 module.exports = Seat;

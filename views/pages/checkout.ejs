@@ -1,0 +1,95 @@
+<div class="container my-5 pt-2">
+  <div class="row">
+
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Thông tin phim</h5>
+          <p>Phim: <strong><%= payment.movie?.title %></strong></p>
+          <p>Ngày giờ chiếu: <span class="text-danger"><%= payment.movie?.startTime %></span></p>
+          <p>Ghế: <strong><%= payment.tickets?.map(ticket => ticket.seat).join(', ') %></strong></p>
+          <p>Phòng chiếu: <strong><%= payment.movie?.cinemaHall %></strong></p>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Thông tin thanh toán</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Danh mục</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Tổng tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% payment.tickets?.forEach(ticket => { %>
+              <tr>
+                <td>Ghế (<%= ticket.seat %>)</td>
+                <td>1</td>
+                <td><%= ticket.price %> đ</td>
+              </tr>
+              <% }) %>
+              <tr>
+                <td>
+                  <strong>Tổng cộng</strong>
+                </td>
+                <td></td>
+                <td>
+                  <strong><%= payment.amount %> đ</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Phương thức thanh toán</h5>
+          <form id="checking-form" data-payment-id="<%= payment.id %>">
+            <% const paymentMethods = Object.keys(PaymentMethod)
+            .filter(key => typeof PaymentMethod[key] === 'string')
+            .map(key => ({key, desc: PaymentMethod.getDesc(key)})) %>
+            <% paymentMethods.forEach(({key, desc}) => { %>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" value="<%= key %>" name="paymentMethod" id="<%= key %>" <% if (payment.paymentMethod === key) { %> checked <% } %>>
+              <label class="form-check-label" for="<%= key %>"><%= desc %></label>
+            </div>
+            <% }) %>
+
+            <h6 class="mt-3">Chi phí</h6>
+            <p>Thanh toán: <%= payment.amount %> đ</p>
+            <p>Phí: 0đ</p>
+            <p><strong>Tổng cộng: <%= payment.amount %> đ</strong></p>
+
+            <button type="submit" class="btn btn-danger w-100">Thanh toán</button>
+          </form>
+          <button class="btn btn-secondary w-100 mt-2">Quay lại</button>
+
+          <!-- <p class="mt-3 text-danger">
+            Lưu ý: Không mua vé cho trẻ em dưới 13 tuổi đối với các suất chiếu phim kết thúc sau 22h00 và không mua vé cho trẻ em dưới 16 tuổi đối với các suất chiếu phim kết thúc sau 23h00.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Thông báo</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+
+</div>

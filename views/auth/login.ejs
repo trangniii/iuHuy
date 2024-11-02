@@ -1,5 +1,5 @@
 <div class="max-w-sm mx-auto py-5">
-  <form class="form border p-4 rounded" id="form-login" action="/login" method="post">
+  <form class="form border p-4 rounded" id="form-login" action="/login?from=<%= from %>" method="post">
     <h4 class="form__title">Đăng nhập</h4>
     <% if(locals?.error) {%>
     <div class="alert alert-danger" role="alert">
