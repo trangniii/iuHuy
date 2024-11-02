@@ -1,59 +1,79 @@
 <div class="container text-center">
-    <!-- Thông tin giờ chiếu và thời gian chọn ghế -->
-    <div class="d-flex justify-content-between py-3">
-        <div>Giờ chiếu: <strong>23:25</strong></div>
-        <div>Thời gian chọn ghế: <span class="badge badge-warning">09:57</span></div>
-    </div>
+  <div class="d-flex justify-content-between py-3">
+    <div>Tên phim: <strong><%= hallInfo.movieName %></strong></div>
+    <div>Giờ chiếu: <strong><%= hallInfo.startTime %></strong></div>
+  </div>
 
-    <!-- Màn hình -->
-    <div class="bg-warning py-2 mb-4 rounded">Màn hình</div>
-    <Span style="margin: 60px;"><strong>Phòng chiếu số 5</strong></Span>
+  <div class="bg-warning py-2 mb-4 rounded">Màn hình</div>
+  <Span style="margin: 60px;"><strong>Phòng chiếu số 5</strong></Span>
 
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="d-flex flex-wrap justify-content-center">
-                <div class="p-2">
-                    <button class="btn btn-secondary btn-sm seat-btn">&#10005;</button>
-                </div>
-                <div class="p-2">
-                    <button class="btn btn-secondary btn-sm seat-btn">&#10005;</button>
-                </div>
-                <div class="p-2">
-                    <button class="btn btn-secondary btn-sm selected seat-btn">A3</button>
-                </div>
-            </div>
-            <div class="d-flex flex-wrap justify-content-center">
-                <div class="p-2">
-                    <button class="btn btn-secondary btn-sm selected seat-btn">B1</button>
-                </div>
-                <div class="p-2">
-                    <button class="btn btn-secondary btn-sm seat-btn selected">B2</button>
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="d-flex flex-wrap" style="gap: 4px;">
+        <% hallInfo.seats.forEach(row => { %>
+        <div class="d-flex justify-content-center mx-auto" style="gap: 4px; width: 100%;">
+          <% row.forEach(seat => { %>
+          <% const isDisabled = seat.status === SeatStatus.BOOKED %>
+          <button data-seat="<%= JSON.stringify(seat) %>" class="btn btn-secondary btn-sm btn-disable seat-btn js--seat-btn" <% if (isDisabled) { %> disabled <% } %>><%= seat.name %></button>
+          <% }) %>
         </div>
+        <% }) %>
+      </div>
+      <!--
+         <div class="p-2">
+          <button class="btn btn-secondary btn-sm btn-disable seat-btn">&#10005;</button>
+        </div>
+        <div class="p-2">
+          <button class="btn btn-secondary btn-sm seat-btn">&#10005;</button>
+        </div>
+        <div class="p-2">
+          <button class="btn btn-secondary btn-sm selected seat-btn">A3</button>
+        </div>
+         -->
     </div>
+  </div>
+</div>
 
-    <div class="d-flex justify-content-center">
-        <div class="legend-item">
-            <div class="legend-box booked">
-                <span>&#10005;</span>
-            </div>
-            <span>Đã đặt</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-box selected"></div>
-            <span>Ghế bạn chọn</span>
-        </div>
+<div class="d-flex justify-content-center mt-4">
+  <div class="legend-item">
+    <div class="legend-box booked">
+      <span>&#10005;</span>
     </div>
+    <span>Đã đặt</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-box selected"></div>
+    <span>Ghế bạn chọn</span>
+  </div>
+</div>
 
-    <div class="d-flex justify-content-between align-items-center mt-4">
-        <div>
-            <span>Ghế đã chọn: <strong>0</strong></span> |
-            <span>Tổng tiền: <strong>0đ</strong></span>
-        </div>
-        <div>
-            <button class="btn btn-secondary mr-2">Quay lại</button>
-            <button class="btn btn-danger">Thanh toán</button>
-        </div>
+<div class="container d-flex justify-content-between align-items-center mt-4">
+  <div class="row w-full">
+    <div class="col-6">
+      <span class="">Ghế đã chọn: <strong class="js--seat-selected">0</strong></span> |
+      <span>Tổng tiền: <strong class="js--total-price">0đ</strong></span>
     </div>
+    <div class="col-6">
+      <div class="d-flex justify-content-end w-full" style="gap: 4px;">
+        <% if (locals?.from) { %>
+        <a href="<%= from %>" class="btn btn-secondary mr-2">Quay lại</a>
+        <% } %>
+        <button class="btn btn-danger js--booking" data-showtime="<%= showtimeId %>">Đặt vé</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Bootstrap</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
+
 </div>

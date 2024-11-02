@@ -15,7 +15,7 @@ class CinemaHallInfoDto extends CinemaHallDto {
   seats = [];
   constructor({ seats, ...info } = {}) {
     super({});
-    this.seats = seats.map((seat) => new SeatsInfoDto(seat));
+    this.seats = seats.map((row) => row.map((seat) => new SeatsInfoDto(seat)));
     this.movieName = info.movieName;
     this.startTime = info.startTime;
     this.seatColumns = info.seatColumns;
