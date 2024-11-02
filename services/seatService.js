@@ -106,6 +106,16 @@ const seatService = {
       number === 0
     );
   },
+
+  async makeSeatBooked(seatId) {
+    const seat = await Seat.findByPk(seatId);
+
+    if (!seat) throw new HttpError(NOT_FOUND, "Seat not found");
+
+    seat.status = BOOKED;
+
+    return seat.save();
+  },
 };
 
 module.exports = seatService;
