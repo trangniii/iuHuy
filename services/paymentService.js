@@ -12,6 +12,7 @@ const { BOOKED } = require("../models/enum/SeatStatus");
 const Showtime = require("../models/Showtime");
 const Movie = require("../models/Movie");
 const CinemaHall = require("../models/CinemaHall");
+const PaymentInfoDto = require("../models/dto/PaymentInfoDto");
 
 const paymentService = {
   async createPayment({ amount, paymentMethod, status, userId }) {
@@ -59,11 +60,12 @@ const paymentService = {
     return returnValue;
   },
 
-  async getPaymentInfo(userId, paymentId) {
+  async getPaymentInfo(userId, paymentId, status = PENDING) {
     const payment = await Payment.findOne({
       where: {
         id: paymentId,
         userId,
+        status,
       },
       include: [
         {
@@ -79,7 +81,9 @@ const paymentService = {
       ],
     });
 
-    return payment;
+    if (!payment) throw new HttpError(NOT_FOUND, "Payment not found");
+
+    return new PaymentInfoDto(payment.toJSON());
   },
 };
 module.exports = paymentService;

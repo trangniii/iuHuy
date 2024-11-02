@@ -1,6 +1,7 @@
 const { setupAssociations } = require("./models");
 const CinemaHall = require("./models/CinemaHall");
 const { CASH } = require("./models/enum/PaymentMethod");
+const { COMPLETED } = require("./models/enum/PaymentStatus");
 const Payment = require("./models/Payment");
 const Seat = require("./models/Seat");
 const Showtime = require("./models/Showtime");
@@ -14,13 +15,14 @@ async function bootstrap() {
   await sequelize.sync();
   // console.log(
   //   await ticketService.bookTicket(1, 1, [
-  //     { row: 2, number: 1 },
-  //     { row: 2, number: 2 },
-  //   ]),
-  //   await ticketService.bookTicket(2, 1, [
-  //     { row: 2, number: 1 },
-  //     { row: 2, number: 2 },
+  //     { row: 3, number: 1 },
+  //     { row: 3, number: 2 },
+  //     { row: 3, number: 3 },
   //   ])
+  // await ticketService.bookTicket(2, 1, [
+  //   { row: 2, number: 1 },
+  //   { row: 2, number: 2 },
+  // ])
   // );
 
   // log(await paymentService.pay(1, 28));
@@ -48,9 +50,9 @@ async function bootstrap() {
   //   })
   // );
 
-  const payment = await paymentService.getPaymentInfo(1, 28);
+  const payment = await paymentService.getPaymentInfo(1, 30);
 
-  log(payment.toJSON());
+  log(payment);
 }
 
 function log(data) {
