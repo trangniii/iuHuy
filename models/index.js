@@ -10,7 +10,7 @@ const User = require("./User");
 
 function setupAssociations() {
   User.hasMany(Ticket, { foreignKey: "userId" });
-  CinemaHall.hasMany(Seat, { foreignKey: "cinemaHallId" });
+  CinemaHall.hasMany(Seat, { foreignKey: "cinemaHallId", onDelete: "CASCADE" });
   CinemaHall.hasMany(Showtime, { foreignKey: "cinemaHallId" });
   Movie.hasMany(Showtime, { foreignKey: "movieId" });
   Movie.hasMany(Revenue, { foreignKey: "movieId" });
@@ -19,8 +19,11 @@ function setupAssociations() {
   Seat.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
   Seat.hasMany(Ticket, { foreignKey: "seatId" });
   Showtime.belongsTo(Movie, { foreignKey: "movieId" });
-  Showtime.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
-  Showtime.hasMany(Ticket, { foreignKey: "showtimeId" });
+  Showtime.belongsTo(CinemaHall, {
+    foreignKey: "cinemaHallId",
+    onDelete: "CASCADE",
+  });
+  Showtime.hasMany(Ticket, { foreignKey: "showtimeId", onDelete: "CASCADE" });
   Ticket.belongsTo(User, { foreignKey: "userId" });
   Ticket.belongsTo(Showtime, { foreignKey: "showtimeId" });
   Ticket.belongsTo(Seat, { foreignKey: "seatId" });
