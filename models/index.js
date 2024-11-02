@@ -9,12 +9,14 @@ const Ticket = require("./Ticket");
 const User = require("./User");
 
 function setupAssociations() {
-  User.hasMany(Ticket, { foreignKey: "userId" });
+  User.hasMany(Ticket, { foreignKey: "userId", onDelete: "CASCADE" });
+  User.hasMany(Payment, { foreignKey: "userId" });
   CinemaHall.hasMany(Seat, { foreignKey: "cinemaHallId", onDelete: "CASCADE" });
   CinemaHall.hasMany(Showtime, { foreignKey: "cinemaHallId" });
   Movie.hasMany(Showtime, { foreignKey: "movieId" });
   Movie.hasMany(Revenue, { foreignKey: "movieId" });
   Payment.hasMany(Ticket, { foreignKey: "paymentId" });
+  Payment.belongsTo(User, { foreignKey: "userId" });
   Revenue.belongsTo(Movie, { foreignKey: "movieId" });
   Seat.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
   Seat.hasMany(Ticket, { foreignKey: "seatId" });
@@ -23,11 +25,23 @@ function setupAssociations() {
     foreignKey: "cinemaHallId",
     onDelete: "CASCADE",
   });
-  Showtime.hasMany(Ticket, { foreignKey: "showtimeId", onDelete: "CASCADE" });
+  Showtime.hasMany(Ticket, { foreignKey: "showtimeId" });
   Ticket.belongsTo(User, { foreignKey: "userId" });
-  Ticket.belongsTo(Showtime, { foreignKey: "showtimeId" });
-  Ticket.belongsTo(Seat, { foreignKey: "seatId" });
-  Ticket.belongsTo(Payment, { foreignKey: "paymentId" });
+  Ticket.belongsTo(Showtime, {
+    foreignKey: "showtimeId",
+    onDelete: "CASCADE",
+    hooks: true,
+  });
+  Ticket.belongsTo(Seat, {
+    foreignKey: "seatId",
+    onDelete: "CASCADE",
+    hooks: true,
+  });
+  Ticket.belongsTo(Payment, {
+    foreignKey: "paymentId",
+    onDelete: "CASCADE",
+    hooks: true,
+  });
 }
 
 module.exports = {

@@ -1,4 +1,5 @@
 const movieService = require("../services/movieService");
+const ticketService = require("../services/ticketService");
 const movieRouter = require("express").Router();
 
 movieRouter.get("/:id", async (req, res, next) => {
@@ -15,7 +16,9 @@ movieRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-movieRouter.get("/checkout/:id", (req, res) => {
+movieRouter.get("/checkout/:id", async (req, res) => {
+  const ticketId = req.params.id;
+
   res.render("pages/checkout");
 });
 
