@@ -6,10 +6,13 @@ const auth = require("../services/authService");
 
 const globalLocals = {};
 
-authRouter.get("/login", redirectIfAuthenticated, (_, res) => {
+authRouter.get("/login", redirectIfAuthenticated, (req, res) => {
+  const from = req.query.from || "/";
+
   res.render("auth/login", {
     title: "Login",
     css: "loginPage.css",
+    from,
     ...globalLocals,
   });
 });
@@ -20,6 +23,7 @@ authRouter.post(
   loginRules(),
   async (req, res) => {
     const result = validationResult(req);
+    const from = req.query.from;
     const locals = {
       title: "Login",
       css: "loginPage.css",
@@ -34,7 +38,7 @@ authRouter.post(
     try {
       const user = await auth.login(req.body.email, req.body.password);
       auth.setUserToSession(req.session, user);
-      res.redirect("/");
+      res.redirect(from || "/");
     } catch (error) {
       locals.error = "Email hoặc mật khẩu không chính xác";
       return res.render("auth/login", locals);
@@ -76,5 +80,11 @@ authRouter.post(
     }
   }
 );
+
+authRouter.get("/logout", (req, res) => {
+  res.clearCookie("connect.sid");
+  req.session.destroy();
+  res.redirect("/");
+});
 
 module.exports = authRouter;
