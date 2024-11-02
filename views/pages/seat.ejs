@@ -1,174 +1,51 @@
-<% <!-- chuyen doi so -> ki tu A, B, C -->
-    function numberToCharacter(number) {
-    return String.fromCharCode('A'.charCodeAt(0) + (number - 1));
-    }
-    %>
+<div class="container text-center">
+    <!-- Thông tin giờ chiếu và thời gian chọn ghế -->
+    <div class="d-flex justify-content-between py-3">
+        <div>Giờ chiếu: <strong>23:25</strong></div>
+        <div>Thời gian chọn ghế: <span class="badge badge-warning">09:57</span></div>
+    </div>
 
-    <!DOCTYPE html>
-    <html lang="en">
+    <div class="bg-warning py-2 mb-4 rounded">Màn hình</div>
+    <span>Phong chieu so 5</span>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Phòng Chiếu Phim</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="styles.css">
-        <style>
-            .header {
-                display: flex;
-                justify-content: space-between;
-                font-size: 16px;
-                margin-bottom: 10px;
-            }
-
-            body {
-                background-color: #1c1c1c;
-                color: #ffffff;
-            }
-
-            .container {
-                max-width: 800px;
-            }
-
-            .screen {
-                height: 40px;
-                background-color: #ffa500;
-                border-radius: 5px;
-            }
-
-            h2 {
-                font-size: 24px;
-                margin-top: 10px;
-            }
-
-            .seat-layout .row {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 5px;
-            }
-
-            .seat {
-                width: 40px;
-                height: 40px;
-                margin: 3px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 12px;
-                color: #ffffff;
-                background-color: #333;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            .seat.occupied {
-                background-color: #666;
-                cursor: not-allowed;
-            }
-
-            .seat.selected {
-                background-color: #007bff;
-            }
-
-            .seat.vip {
-                background-color: #ff9500;
-            }
-
-            .seat.couple {
-                background-color: #d9534f;
-            }
-
-            .seat-info .legend {
-                display: flex;
-                gap: 15px;
-                justify-content: center;
-            }
-
-            .seat-info .legend .seat {
-                width: 20px;
-                height: 20px;
-                margin: 0;
-                display: inline-block;
-            }
-
-            button {
-                margin: 10px;
-            }
-
-            .seat-info-2 {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-        </style>
-    </head>
-
-    <body>
-        <div class="container text-center mt-5">
-            <div class="header">
-                <span>Giờ chiếu: <strong>23:25</strong></span>
-                <span>Thời gian chọn ghế: <strong id="timer">05:00</strong></span>
-            </div>
-
-            <div class="screen"></div>
-            <h2 class="mt-3">Phòng chiếu số 5</h2>
-            <div class="seat-layout mt-4">
-                <!-- <% for(let i = 1;i <= 12; i++){
-                Object.keys(seats).forEach(row => {                
-                    if (Number(row) === i) {%>
-                        <div class="row">
-                        <%for(let j = 1; j <= 17; j++) {
-                            seats[row].forEach(seat => {                    
-                                if(j === seat.number) {
-                                    if(seat.status === "BOOKED") {%>
-                                        <button class="seat occupied">x</button>
-                                    <%return;
-                                    }else {
-
-                                    }                                                                       
-                                }%>
-                                <button class="seat occupied">x</button> 
-                            <%})
-                        }%>
-                        </div>                    
-                    <%}
-                })
-            }%>  -->
-
-
-                <div class="row">
-                    <button class="seat occupied">x</button>
-                    <button class="seat">A2</button>
-                    <button class="seat occupied">x</button>
-                    <button class="seat">A4</button>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="p-2">
+                    <button class="btn btn-secondary btn-sm">A1</button>
                 </div>
-                <div class="row">
-                    <button class="seat couple">D3</button>
-                    <button class="seat selected">D4</button>
-                    <button class="seat vip">D5</button>
+                <div class="p-2">
+                    <button class="btn btn-secondary btn-sm">A2</button>
+                </div>
+                <div class="p-2">
+                    <button class="btn btn-secondary btn-sm">A3</button>
                 </div>
             </div>
-            <!-- ====================================== -->
-            <div class="seat-info mt-3">
-                <div class="legend">
-                    <span class="seat occupied"></span> Đã đặt
-                    <span class="seat selected"></span> Ghế bạn chọn
-                    <span class="seat"></span> Ghế thường
-                    <span class="seat vip"></span> Ghế VIP
-                    <span class="seat couple"></span> Ghế đôi
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="p-2">
+                    <button class="btn btn-secondary btn-sm">B1</button>
                 </div>
-                <div class="mt-3 seat-info-2">
-                    <div>
-                        <p>Ghế đã chọn: <span id="selected-seats">A1</span></p>
-                        <p>Tổng tiền: <span id="total-price">0đ</span></p>
-                    </div>
-                    <div class="mt-3">
-                        <button class="btn btn-secondary">Quay lại</button>
-                        <button class="btn btn-danger">Thanh toán</button>
-                    </div>
+                <div class="p-2">
+                    <button class="btn btn-secondary btn-sm btn-danger">B2</button>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
 
-    </html>
+    <div class="mt-4">
+        <span class="badge badge-dark">Ghế thường</span>
+        <span class="badge badge-warning">Ghế VIP</span>
+        <span class="badge badge-danger">Ghế đôi</span>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div>
+            <span>Ghế đã chọn: <strong>0</strong></span> | 
+            <span>Tổng tiền: <strong>0đ</strong></span>
+        </div>
+        <div>
+            <button class="btn btn-secondary mr-2">Quay lại</button>
+            <button class="btn btn-danger">Thanh toán</button>
+        </div>
+    </div>
+</div>
