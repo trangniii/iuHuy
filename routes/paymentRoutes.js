@@ -3,8 +3,12 @@ const mustLogin = require("../middlewares/mustLogin");
 const hallService = require("../services/hallService");
 const paymentService = require("../services/paymentService");
 const { seatsRules } = require("../validators/bookingRules");
-const { BAD_REQUEST } = require("../models/enum/HttpCode");
+const {
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
+} = require("../models/enum/HttpCode");
 const ticketService = require("../services/ticketService");
+const { CASH } = require("../models/enum/PaymentMethod");
 
 const paymentRouter = require("express").Router();
 
@@ -14,9 +18,24 @@ paymentRouter.get("/checkout/:id", mustLogin, async (req, res, next) => {
 
   try {
     const paymentInfo = await paymentService.getPaymentInfo(userId, paymentId);
-    res.render("pages/checkout", { payment: paymentInfo });
+    res.render("pages/checkout", { payment: paymentInfo, js: "checkoutPage" });
   } catch (error) {
     next(error);
+  }
+});
+
+paymentRouter.post("/checkout/:id", mustLogin, async (req, res) => {
+  const paymentId = req.params.id;
+  const userId = req.user.id;
+  const paymentMethod = req.body.method || CASH;
+
+  try {
+    await paymentService.pay(userId, paymentId, paymentMethod);
+    res.render("pages/checkout-success", { paymentId });
+  } catch (error) {
+    res
+      .status(error.code || INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
   }
 });
 

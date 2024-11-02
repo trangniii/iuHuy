@@ -52,13 +52,13 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Phương thức thanh toán</h5>
-          <form>
+          <form id="checking-form" data-payment-id="<%= payment.id %>">
             <% const paymentMethods = Object.keys(PaymentMethod)
             .filter(key => typeof PaymentMethod[key] === 'string')
             .map(key => ({key, desc: PaymentMethod.getDesc(key)})) %>
             <% paymentMethods.forEach(({key, desc}) => { %>
             <div class="form-check mb-2">
-              <input class="form-check-input" type="radio" name="paymentMethod" id="<%= key %>" <% if (payment.paymentMethod === key) { %> checked <% } %>>
+              <input class="form-check-input" type="radio" value="<%= key %>" name="paymentMethod" id="<%= key %>" <% if (payment.paymentMethod === key) { %> checked <% } %>>
               <label class="form-check-label" for="<%= key %>"><%= desc %></label>
             </div>
             <% }) %>
@@ -79,4 +79,17 @@
       </div>
     </div>
   </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Thông báo</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+
 </div>

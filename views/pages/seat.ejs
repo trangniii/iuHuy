@@ -14,22 +14,17 @@
         <div class="d-flex justify-content-center mx-auto" style="gap: 4px; width: 100%;">
           <% row.forEach(seat => { %>
           <% const isDisabled = seat.status === SeatStatus.BOOKED %>
-          <button data-seat="<%= JSON.stringify(seat) %>" class="btn btn-secondary btn-sm btn-disable seat-btn js--seat-btn" <% if (isDisabled) { %> disabled <% } %>><%= seat.name %></button>
+          <button data-seat="<%= JSON.stringify(seat) %>" class="btn btn-secondary btn-sm btn-disable seat-btn js--seat-btn" <% if (isDisabled) { %> disabled <% } %>>
+            <% if (isDisabled) { %>
+            &#10005;
+            <% } else { %>
+            <%= seat.name %>
+            <% } %>
+          </button>
           <% }) %>
         </div>
         <% }) %>
       </div>
-      <!--
-         <div class="p-2">
-          <button class="btn btn-secondary btn-sm btn-disable seat-btn">&#10005;</button>
-        </div>
-        <div class="p-2">
-          <button class="btn btn-secondary btn-sm seat-btn">&#10005;</button>
-        </div>
-        <div class="p-2">
-          <button class="btn btn-secondary btn-sm selected seat-btn">A3</button>
-        </div>
-         -->
     </div>
   </div>
 </div>
