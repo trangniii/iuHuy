@@ -1,0 +1,19 @@
+<div class="max-w-sm mx-auto py-5">
+  <form class="form border p-4 rounded" id="form-update" action="/updatePriceSeats" method="post">
+    <h4 class="form__title">Cập nhật khoảng giá vé</h4>
+    <input type="text" class="form-control" id="id" name="id" value="<%= priceData.id%>" hidden>
+    <div class="mb-3">
+      <label for="row-start" class="form-label">Hàng bắt đầu</label>
+      <input type="number" class="form-control" id="row-start" name="rowStart" value="<%= priceData.startRow %>">
+    </div>
+    <div class="mb-3">
+      <label for="row-end" class="form-label">Hàng kết thúc</label>
+      <input type="number" class="form-control" id="row-end" name="rowEnd" value="<%= priceData.endRow %>">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Giá tiền</label>
+      <input type="number" class="form-control" id="price" name="price" value="<%= priceData.price %>">
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+  </form>
+</div>
