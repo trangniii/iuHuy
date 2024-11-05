@@ -25,7 +25,7 @@ const hallService = {
 
   async getInfoOfHallWithShowtime(showtimeId) {
     const hall = await this.getHallOfShowtime(showtimeId);
-    const seats = await seatService.generateSeatsForHall(hall);
+    const seats = await seatService.generateSeatsForHall(hall, showtimeId);
     return new CinemaHallInfoDto({ ...hall, seats });
   },
 };

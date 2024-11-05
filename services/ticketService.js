@@ -37,19 +37,14 @@ const ticketService = {
     const [user, showtime] = await Promise.all([
       User.findByPk(userId),
       Showtime.findByPk(showtimeId, {
-        include: [
-          {
-            model: CinemaHall,
-            include: [Seat],
-          },
-        ],
+        include: [CinemaHall, Seat],
       }),
     ]);
 
     if (!user || !showtime)
       throw new HttpError(NOT_FOUND, "User or showtime not found");
     const cinemaHallValue = showtime.CinemaHall.toJSON();
-    const seatsValues = cinemaHallValue.Seats;
+    const seatsValues = showtime.dataValues.Seats.map((s) => s.toJSON());
 
     if (!this.validSeats(seats, seatsValues, cinemaHallValue))
       throw new HttpError(
@@ -60,7 +55,7 @@ const ticketService = {
 
     const seatsCreated = await Promise.all(
       seats.map(async (seatToCreate) => {
-        const seatCreated = showtime.CinemaHall.Seats.find(
+        const seatCreated = showtime.Seats.find(
           (s) => s.row === seatToCreate.row && s.number === seatToCreate.number
         );
         if (seatCreated) return seatCreated;
@@ -70,6 +65,7 @@ const ticketService = {
           number: seatToCreate.number,
           cinemaHallId: cinemaHallValue.id,
           status: AVAILABLE,
+          showtimeId,
         });
       })
     );

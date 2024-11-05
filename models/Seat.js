@@ -10,6 +10,7 @@ const Seat = sequelize.define("Seat", {
     allowNull: false,
   },
   cinemaHallId: { type: DataTypes.INTEGER, allowNull: false },
+  showtimeId: { type: DataTypes.INTEGER, allowNull: false },
   row: { type: DataTypes.INTEGER, allowNull: false },
   number: { type: DataTypes.INTEGER, allowNull: false },
   status: {
