@@ -20,6 +20,7 @@ class CinemaHallInfoDto extends CinemaHallDto {
     this.startTime = info.startTime;
     this.seatColumns = info.seatColumns;
     this.seatRows = info.seatRows;
+    this.name = info.name;
     this.id = info.id;
   }
 }

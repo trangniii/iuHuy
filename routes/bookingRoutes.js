@@ -20,7 +20,8 @@ bookingRouter.get("/:id", mustLogin, async (req, res, next) => {
   try {
     const info = await hallService.getInfoOfHallWithShowtime(showtimeId);
     locals.hallInfo = info;
-    res.render("pages/seat", locals);
+    console.log(info);
+    res.render("pages/booking", locals);
   } catch (error) {
     next(error);
   }
