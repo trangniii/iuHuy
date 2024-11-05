@@ -47,7 +47,8 @@
           <div class="row">
             <% date.times.forEach((time) => { %>
             <div class="col-3">
-              <a href="/booking/<%= time.id %>?from=/movies/<%= id %>" class="btn btn-outline-primary w-100"><%= time.timeString %></a>
+              <!-- /booking/<%= time.id %>?from=/movies/<%= id %> -->
+              <a href="<%= MoviePaths.booking(time.id, `?from=${MoviePaths.movieDetail(id)}`) %>" class="btn btn-outline-primary w-100"><%= time.timeString %></a>
             </div>
             <% }) %>
           </div>
