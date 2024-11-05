@@ -21,7 +21,8 @@
     "mariadb": "^3.3.2",
     "morgan": "~1.9.1",
     "mysql2": "^3.11.3",
-    "sequelize": "^6.37.4"
+    "sequelize": "6.13.0",
+    "sequelize-cli": "6.3.0"
   },
   "peerDependencies": {
     "mariadb": "^3.3.2"
