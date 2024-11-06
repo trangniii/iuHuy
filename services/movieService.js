@@ -83,6 +83,29 @@ const movieService = {
     if (!movie) throw new HttpError(NOT_FOUND, "Movie not found");
     return new MovieDetailDto(movie.toJSON());
   },
+
+  async createNewMovie (movie) {
+    const maxIdShowing = Math.max(...this.getNowShowingMovies.movies.map((movie) => movie.id));
+    const maxIdUpComing = Math.max(...this.getUpcomingMovies.movies.map((movie) => movie.id));
+
+    const id = maxIdShowing >= maxIdUpComing ? maxIdShowing : maxIdUpComing;
+
+    try {
+      Movie.create({
+        id: id,
+        title: movie.title,
+        description: movie.description,
+        duration: movie.duration,
+        genre: movie.genre,
+        releaseDate: movie.releaseDate,
+        posterUrl: movie.posterUrl,
+        createdAt: movie.createdAt,
+        updatedAt: movie.updatedAt
+      })
+    }catch(e) {
+
+    }
+  }
 };
 
 module.exports = movieService;

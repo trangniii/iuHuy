@@ -1,0 +1,25 @@
+<div class="col">
+    <div class="card h-100 d-flex flex-row align-items-center p-3">
+        <% if (movie.posterUrl){ %>
+            <img src="<%= movie.posterUrl %>" class="card-img-top img-thumbnail me-3" style="width: 100px;"
+                alt="Poster Phim">
+            <% }else { %>
+                <div class="card-img-top movie-card__image bg-secondary-subtle"></div>
+                <% } %>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= movie.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= movie.genre %>
+                        </p>
+                        <p class="card-text">
+                            <%= movie.startTime %>
+                        </p>
+                    </div>
+                    <div class="ms-auto d-flex flex-column gap-2">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <button class="btn btn-primary btn-sm">Change</button>
+                    </div>
+    </div>
+</div>

@@ -14,11 +14,12 @@ const seatService = {
     const seats = [];
 
     for (let i = 0; i < seatRows; i++) {
+      const row = [];
       for (let j = 0; j < seatColumns; j++) {
         const seat = {
           row: i + 1,
           number: j + 1,
-          name: getAlphabetChar(i) + (j + 1),
+          name: getAlphabetChar(i + 1) + (j + 1),
           price: priceService.calculatePriceOfSeat(prices, i + 1),
           status: seatsBooked.some(
             (seat) => seat.row === i + 1 && seat.number === j + 1
@@ -27,8 +28,9 @@ const seatService = {
             : AVAILABLE,
         };
 
-        seats.push(seat);
+        row.push(seat);
       }
+      seats.push(row);
     }
 
     return seats;

@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Add New Movie</h2>
+    <form>
+      <!-- Title -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" placeholder="Enter movie title" required>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" rows="3" placeholder="Enter movie description" required></textarea>
+      </div>
+
+      <!-- Duration -->
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duration (minutes)</label>
+        <input type="number" class="form-control" id="duration" placeholder="Enter movie duration" required>
+      </div>
+
+      <!-- Genre -->
+      <div class="mb-3">
+        <label for="genre" class="form-label">Genre</label>
+        <input type="text" class="form-control" id="genre" placeholder="Enter movie genre" required>
+      </div>
+
+      <!-- Release Date -->
+      <div class="mb-3">
+        <label for="releaseDate" class="form-label">Release Date</label>
+        <input type="date" class="form-control" id="releaseDate" required>
+      </div>
+
+      <!-- Selected Image -->
+      <div class="mb-3">
+        <label for="selectedImage" class="form-label">Selected Image</label>
+        <input type="file" class="form-control" id="selectedImage" accept="image/*">
+      </div>
+
+      <!-- Create Button -->
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
