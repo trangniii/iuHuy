@@ -1,3 +1,4 @@
+const mustLogin = require("../middlewares/mustLogin");
 const {
   getPrices,
   deletePriceById,
@@ -8,7 +9,7 @@ const {
 
 const adminRouter = require("express").Router();
 
-adminRouter.get("/priceSeatsManage", async (req, res) => {
+adminRouter.get("/priceSeatsManage", mustLogin, async (req, res) => {
   try {
     const prices = await getPrices();
     res.render("pages/priceSeatsManage", { prices });
@@ -19,24 +20,24 @@ adminRouter.get("/priceSeatsManage", async (req, res) => {
   }
 });
 
-adminRouter.get("/addPriceSeats", (req, res) => {
+adminRouter.get("/addPriceSeats", mustLogin, (req, res) => {
   res.render("pages/addPriceSeats");
 });
 
-adminRouter.get("/updatePriceSeats/:id", async (req, res) => {
+adminRouter.get("/updatePriceSeats/:id", mustLogin, async (req, res) => {
   const id = req.params.id;
   const priceData = await getPriceById(id);
   res.render("pages/updatePriceSeats", { priceData });
 });
 
-adminRouter.get("/deletePriceSeats/:id", async (req, res) => {
+adminRouter.get("/deletePriceSeats/:id", mustLogin, async (req, res) => {
   const isSuccess = await deletePriceById(req.params.id);
   if (isSuccess) {
     res.redirect("/priceSeatsManage");
   }
 });
 
-adminRouter.post("/addPriceSeats", async (req, res) => {
+adminRouter.post("/addPriceSeats", mustLogin, async (req, res) => {
   const startRow = req.body.rowStart;
   const endRow = req.body.rowEnd;
   const price = req.body.price;
@@ -48,7 +49,7 @@ adminRouter.post("/addPriceSeats", async (req, res) => {
   res.redirect("/priceSeatsManage");
 });
 
-adminRouter.post("/updatePriceSeats", async (req, res) => {
+adminRouter.post("/updatePriceSeats", mustLogin, async (req, res) => {
   const id = req.body.id;
   const startRow = req.body.rowStart;
   const endRow = req.body.rowEnd;
