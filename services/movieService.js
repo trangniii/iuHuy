@@ -89,9 +89,10 @@ const movieService = {
     const maxIdUpComing = Math.max(...this.getUpcomingMovies.movies.map((movie) => movie.id));
 
     const id = maxIdShowing >= maxIdUpComing ? maxIdShowing : maxIdUpComing;
+    id++;
 
     try {
-      Movie.create({
+      await Movie.create({
         id: id,
         title: movie.title,
         description: movie.description,
@@ -101,9 +102,9 @@ const movieService = {
         posterUrl: movie.posterUrl,
         createdAt: movie.createdAt,
         updatedAt: movie.updatedAt
-      })
+      });
     }catch(e) {
-
+      print("===> ERROR: " + e);
     }
   }
 };

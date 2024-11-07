@@ -24,4 +24,20 @@ movieRouter.get("/:id", async (req, res, next) => {
   }
 });
 
+movieRouter.get("/admin", async (req, res, next) => {
+  const [nowMovies, upComingMovies] = await Promise.all([
+    movieService.getNowShowingMovies(),
+    movieService.getUpcomingMovies(),
+  ]);
+
+  try {
+    res.render("pages/movieManagement", {
+      nowMovies: nowMovies.movies,
+      upComingMovies: upComingMovies.movies,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = movieRouter;
