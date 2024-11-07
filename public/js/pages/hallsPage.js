@@ -1,20 +1,25 @@
 (() => {
   "use strict";
 
+  const modalTitle = document.querySelector(".js--title");
+
   const form = document.querySelector(".needs-validation");
   const addBtn = document.querySelector(".js--add-btn");
   const editBtn = document.querySelector(".js--edit-btn");
 
+  const nameInput = form.querySelector('input[name="name"]');
+  const seatRowsInput = form.querySelector('input[name="seatRows"]');
+  const seatColumnsInput = form.querySelector('input[name="seatColumns"]');
+
   addBtn.addEventListener("click", () => {
+    modalTitle.textContent = "Thêm phòng chiếu";
     form.setAttribute("action", "/dashboard/halls/add");
     form.setAttribute("method", "POST");
     form.reset();
   });
 
   editBtn.addEventListener("click", () => {
-    const nameInput = form.querySelector('input[name="name"]');
-    const seatRowsInput = form.querySelector('input[name="seatRows"]');
-    const seatColumnsInput = form.querySelector('input[name="seatColumns"]');
+    modalTitle.textContent = "Sửa phòng chiếu";
     const hall = editBtn.parentElement.parentElement.dataset.hall;
 
     const { name, seatRows, seatColumns, id } = JSON.parse(hall);
