@@ -1,5 +1,9 @@
 const adminRouter = require("express").Router();
+const mustAdmin = require("../middlewares/mustAdmin");
+const mustLogin = require("../middlewares/mustLogin");
 const hallRoutes = require("./hallRoutes");
+
+adminRouter.use(mustLogin, mustAdmin);
 
 adminRouter.use(hallRoutes);
 

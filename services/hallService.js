@@ -54,6 +54,11 @@ const hallService = {
       totalPages: Math.ceil(halls.count / pageSize),
     };
   },
+
+  async updateHall(id, { name, seatRows, seatColumns }) {
+    await CinemaHall.update({ name, seatRows, seatColumns }, { where: { id } });
+    return CinemaHall.findByPk(id);
+  },
 };
 
 module.exports = hallService;
