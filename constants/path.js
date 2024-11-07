@@ -6,6 +6,8 @@ const MoviePaths = {
   CHECKOUT: "/checkout",
   BOOKING: "/booking",
   LOGOUT: "/logout",
+  DASHBOARD: "/dashboard",
+  ADMIN_HALLS: "/dashboard/halls",
   // Generate path with params
 
   movieDetail(id) {
