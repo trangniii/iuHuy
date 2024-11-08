@@ -1,4 +1,6 @@
 const { startOfWeek, endOfWeek } = require("date-fns");
+const fs = require("fs");
+const path = require("path");
 function getOffsetLimit(page, pageSize) {
   return {
     offset: (page - 1) * pageSize,
@@ -41,10 +43,31 @@ function formatDuration(duration) {
   return `${hours}h ${minutes}m`;
 }
 
+function createIfNotExists(targetPath, type) {
+  const dirPath = path.dirname(targetPath);
+
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  if (type === "file") {
+    if (!fs.existsSync(targetPath)) {
+      fs.writeFileSync(targetPath, "");
+    }
+  } else if (type === "folder") {
+    if (!fs.existsSync(targetPath)) {
+      fs.mkdirSync(targetPath);
+    }
+  } else {
+    throw new Error("Type must be either 'file' or 'folder'");
+  }
+}
+
 module.exports = {
   getOffsetLimit,
   getWeekStartEndDates,
   parseDateTime,
   formatDateMonth,
   formatDuration,
+  createIfNotExists,
 };

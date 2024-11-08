@@ -112,10 +112,17 @@ const movieService = {
       const newMovie = await Movie.create(movieData);
       return newMovie;
     } catch (error) {
-      console.error('Error adding movie:', error);
+      console.error("Error adding movie:", error);
       throw error;
     }
-  }
+  },
+
+  async getMovies(rootPath = MoviePaths.MOVIES) {
+    const movies = await Movie.findAll();
+    return movies.map((movie) =>
+      MovieInfoDto.fromMovie(movie.toJSON(), rootPath)
+    );
+  },
 };
 
 module.exports = movieService;

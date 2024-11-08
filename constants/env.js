@@ -14,4 +14,5 @@ module.exports = {
 
   // File upload
   UPLOAD_DIR: process.env.UPLOAD_DIR || "public/uploads",
+  UPLOAD_ROOT: process.env.UPLOAD_ROOT || "/uploads",
 };

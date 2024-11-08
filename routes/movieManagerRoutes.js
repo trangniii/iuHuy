@@ -4,24 +4,12 @@ const hallRoutes = require("./hallRoutes");
 const path = require("path");
 const multer = require("multer");
 const Movie = require("../models/Movie");
-const { UPLOAD_DIR } = require("../constants/env");
+const { UPLOAD_DIR, UPLOAD_ROOT } = require("../constants/env");
 
 movieManagerRouter.use(hallRoutes);
 
-movieManagerRouter.get("/test", (req, res) => {
-  const locals = {
-    title: "Dashboard",
-  };
-  res.render("admin/dashboard", locals);
-});
-
 movieManagerRouter.get("/management", async (req, res, next) => {
-  const [nowMovies, upComingMovies] = await Promise.all([
-    movieService.getNowShowingMovies(),
-    movieService.getUpcomingMovies(),
-  ]);
-
-  const allMovies = [...nowMovies.movies, ...upComingMovies.movies];
+  const allMovies = await movieService.getMovies();
 
   try {
     res.render("admin/movie-management", {
@@ -53,7 +41,9 @@ movieManagerRouter.post(
   async (req, res, next) => {
     try {
       const { title, description, duration, genre, releaseDate } = req.body;
-      const posterUrl = req.file ? `/images/posters/${req.file.filename}` : "";
+      const posterUrl = req.file
+        ? `/${UPLOAD_ROOT}/movies/${req.file.filename}`
+        : "";
 
       const newMovieData = {
         title,
@@ -85,7 +75,10 @@ movieManagerRouter.post("/delete-movie/:id", async (req, res, next) => {
     if (movie.posterUrl) {
       const fs = require("fs");
       const path = require("path");
-      const posterPath = path.join(__dirname, "..", movie.posterUrl); // Đường dẫn đến poster
+      const posterPath = path.join(
+        UPLOAD_DIR,
+        movie.posterUrl.replace("/uploads", "")
+      ); // Đường dẫn đến poster
 
       if (fs.existsSync(posterPath)) {
         fs.unlinkSync(posterPath);
@@ -101,7 +94,7 @@ movieManagerRouter.post("/delete-movie/:id", async (req, res, next) => {
 });
 
 //Change Movie
-adminRouter.get("/change-movie/:id", async (req, res, next) => {
+movieManagerRouter.get("/change-movie/:id", async (req, res, next) => {
   const movieId = req.params.id;
 
   try {
@@ -122,7 +115,7 @@ movieManagerRouter.post(
   async (req, res, next) => {
     const movieId = req.params.id;
     const { title, description, duration, genre, releaseDate } = req.body;
-    const posterUrl = req.file ? `/uploads/posters/${req.file.filename}` : null;
+    const posterUrl = req.file ? `/uploads/movies/${req.file.filename}` : null;
 
     try {
       // Tìm phim theo ID
