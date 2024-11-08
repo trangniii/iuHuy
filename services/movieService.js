@@ -7,9 +7,13 @@ const Showtime = require("../models/Showtime");
 const MovieDetailDto = require("../models/dto/MovieDetailDto");
 const HttpError = require("../models/HttpError");
 const { NOT_FOUND } = require("../models/enum/HttpCode");
+const MoviePaths = require("../constants/path");
 
 const movieService = {
-  async getNowShowingMovies({ page, pageSize } = {}, rootPath = "/movies") {
+  async getNowShowingMovies(
+    { page, pageSize } = {},
+    rootPath = MoviePaths.MOVIES
+  ) {
     page = page || 1;
     pageSize = pageSize || 10;
     const { offset, limit } = getOffsetLimit(page, pageSize);
@@ -39,7 +43,10 @@ const movieService = {
     };
   },
 
-  async getUpcomingMovies({ page, pageSize } = {}, rootPath = "/movies") {
+  async getUpcomingMovies(
+    { page, pageSize } = {},
+    rootPath = MoviePaths.MOVIES
+  ) {
     page = page || 1;
     pageSize = pageSize || 10;
     const { offset, limit } = getOffsetLimit(page, pageSize);
@@ -82,6 +89,21 @@ const movieService = {
     });
     if (!movie) throw new HttpError(NOT_FOUND, "Movie not found");
     return new MovieDetailDto(movie.toJSON());
+  },
+
+  async getImagesSlideshow(
+    { page, pageSize } = {},
+    rootPath = MoviePaths.MOVIES
+  ) {
+    const { movies } = await this.getNowShowingMovies(
+      { page, pageSize },
+      rootPath
+    );
+    return movies.map((movie) => ({
+      src: movie.posterUrl,
+      alt: movie.title,
+      movieId: movie.id,
+    }));
   },
 };
 

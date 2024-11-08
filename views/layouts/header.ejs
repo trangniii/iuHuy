@@ -12,7 +12,15 @@
           </li>
           <% if (locals?.user?.role === UserRole.ADMIN ) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<%= MoviePaths.DASHBOARD %>">Dashboard</a></li>
+                <li><a class="dropdown-item" href="<%= MoviePaths.ADMIN_HALLS %>">Quản lý phòng chiếu</a></li>
+              </ul>
+            </div>
           </li>
           <% } %>
         </ul>
@@ -24,12 +32,12 @@
           </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Vé đã đặt</a></li>
-            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+            <li><a class="dropdown-item" href="<%= MoviePaths.LOGOUT %>">Đăng xuất</a></li>
           </ul>
         </div>
         <% } else { %>
-        <a href="/login" class="btn mx-2 btn-primary">Đăng nhập</a>
-        <a href="/register" class="btn btn-outline-primary">Đăng ký</a>
+        <a href="<%= MoviePaths.LOGIN %>" class="btn mx-2 btn-primary">Đăng nhập</a>
+        <a href="<%= MoviePaths.REGISTER %>" class="btn btn-outline-primary">Đăng ký</a>
         <% } %>
       </div>
     </div>

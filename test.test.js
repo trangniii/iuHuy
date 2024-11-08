@@ -13,7 +13,7 @@ const sequelize = require("./utils/database");
 
 async function bootstrap() {
   setupAssociations();
-  await sequelize.sync();
+  await sequelize.sync({ force: true });
   // console.log(
   //   await ticketService.bookTicket(1, 1, [
   //     { row: 3, number: 1 },

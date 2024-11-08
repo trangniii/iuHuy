@@ -2,16 +2,7 @@ const seats = document.querySelectorAll(".js--seat-btn");
 const seatSelected = document.querySelector(".js--seat-selected");
 const totalPrice = document.querySelector(".js--total-price");
 const bookingBtn = document.querySelector(".js--booking");
-
-const toastLiveExample = document.getElementById("liveToast");
-const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 let selectedSeats = [];
-
-function showMessage(message, type) {
-  toastLiveExample.querySelector(".toast-body").innerText = message;
-  toastLiveExample.classList.add(`bg-${type}`);
-  toastBootstrap.show();
-}
 
 async function updateSelectedSeats() {
   seatSelected.innerHTML = selectedSeats.map((seat) => seat.name).join(", ");
@@ -78,6 +69,6 @@ bookingBtn.addEventListener("click", async () => {
 
     window.location.href = `/checkout/${paymentId}`;
   } catch (error) {
-    showMessage(error.message, "danger");
+    showToast(error.message, "danger");
   }
 });

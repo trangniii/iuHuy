@@ -23,9 +23,6 @@ formAdd.addEventListener("submit", async (event) => {
   if (rowStart.value <= 0 || rowStart.value == "") {
     rowStart.classList.add("is-invalid");
     validationRS.innerHTML = "Hàng bắt đầu phải lớn hơn 0";
-  } else if (rowEnd.value <= 0 || rowEnd.value == "") {
-    rowEnd.classList.add("is-invalid");
-    validationRE.innerHTML = "Hàng kết thúc phải lớn hơn 0";
   } else if (rowEnd.value <= rowStart.value) {
     rowEnd.classList.add("is-invalid");
     validationRE.innerHTML = "Hàng kết thúc phải lớn hơn hàng đầu";
