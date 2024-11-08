@@ -7,15 +7,12 @@ const paymentRouter = require("./paymentRoutes");
 const adminRouter = require("./adminRoutes");
 const router = express.Router();
 
-// Home Routes
 router.use(homeRouter);
 router.use(authRouter);
 router.use("/checkout", paymentRouter);
 router.use("/movies", movieRouter);
 router.use("/booking", bookingRouter);
 router.use(adminRouter);
-
-router.use("/dashboard", adminRouter);
 
 router.use("/dashboard", adminRouter);
 
