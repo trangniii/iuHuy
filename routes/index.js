@@ -13,6 +13,9 @@ router.use(authRouter);
 router.use("/checkout", paymentRouter);
 router.use("/movies", movieRouter);
 router.use("/booking", bookingRouter);
+router.use(adminRouter);
+
+router.use("/dashboard", adminRouter);
 
 router.use("/dashboard", adminRouter);
 

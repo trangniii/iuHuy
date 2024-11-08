@@ -1,0 +1,25 @@
+<div class="max-w-sm mx-auto py-5">
+  <form class="form border p-4 rounded" id="form-add" action="/addPriceSeats" method="post">
+    <h4 class="form__title">Thêm khoảng giá vé</h4>
+    <div class="mb-3">
+      <label for="row-start" class="form-label">Hàng bắt đầu</label>
+      <input type="number" class="form-control" id="row-start" name="rowStart" placeholder="0">
+      <div class="invalid-feedback" id="validationRowStart">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="row-end" class="form-label">Hàng kết thúc</label>
+      <input type="number" class="form-control" id="row-end" name="rowEnd" placeholder="0">
+      <div class="invalid-feedback" id="validationRowEnd">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Giá tiền</label>
+      <input type="number" class="form-control" id="price" name="price" placeholder="0">
+      <div class="invalid-feedback" id="validationPrice">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" id="addBtn">Thêm</button>
+  </form>
+</div>
+<script src="/js/pages/addPriceSeats.js"></script>
