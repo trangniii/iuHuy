@@ -8,7 +8,7 @@ const { UPLOAD_DIR, UPLOAD_ROOT } = require("../constants/env");
 
 movieManagerRouter.use(hallRoutes);
 
-movieManagerRouter.get("/management", async (req, res, next) => {
+movieManagerRouter.get("/list-movies", async (req, res, next) => {
   const allMovies = await movieService.getMovies();
 
   try {
@@ -55,7 +55,7 @@ movieManagerRouter.post(
       };
 
       await movieService.addMovie(newMovieData);
-      res.redirect("/dashboard/management");
+      res.redirect("/dashboard/list-movies");
     } catch (error) {
       next(error);
     }
@@ -134,7 +134,7 @@ movieManagerRouter.post(
         posterUrl: posterUrl || movie.posterUrl, // Giữ nguyên poster nếu không có hình ảnh mới
       });
 
-      res.redirect("/dashboard/management"); // Chuyển hướng về trang quản lý phim
+      res.redirect("/dashboard/list-movies"); // Chuyển hướng về trang quản lý phim
     } catch (error) {
       next(error);
     }
