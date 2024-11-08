@@ -7,9 +7,13 @@ const Showtime = require("../models/Showtime");
 const MovieDetailDto = require("../models/dto/MovieDetailDto");
 const HttpError = require("../models/HttpError");
 const { NOT_FOUND } = require("../models/enum/HttpCode");
+const MoviePaths = require("../constants/path");
 
 const movieService = {
-  async getNowShowingMovies({ page, pageSize } = {}, rootPath = "/movies") {
+  async getNowShowingMovies(
+    { page, pageSize } = {},
+    rootPath = MoviePaths.MOVIES
+  ) {
     page = page || 1;
     pageSize = pageSize || 10;
     const { offset, limit } = getOffsetLimit(page, pageSize);
@@ -39,7 +43,10 @@ const movieService = {
     };
   },
 
-  async getUpcomingMovies({ page, pageSize } = {}, rootPath = "/movies") {
+  async getUpcomingMovies(
+    { page, pageSize } = {},
+    rootPath = MoviePaths.MOVIES
+  ) {
     page = page || 1;
     pageSize = pageSize || 10;
     const { offset, limit } = getOffsetLimit(page, pageSize);
@@ -84,27 +91,29 @@ const movieService = {
     return new MovieDetailDto(movie.toJSON());
   },
 
-  async createNewMovie (movie) {
-    const maxIdShowing = Math.max(...this.getNowShowingMovies.movies.map((movie) => movie.id));
-    const maxIdUpComing = Math.max(...this.getUpcomingMovies.movies.map((movie) => movie.id));
+  async getImagesSlideshow(
+    { page, pageSize } = {},
+    rootPath = MoviePaths.MOVIES
+  ) {
+    const { movies } = await this.getNowShowingMovies(
+      { page, pageSize },
+      rootPath
+    );
+    return movies.map((movie) => ({
+      src: movie.posterUrl,
+      alt: movie.title,
+      movieId: movie.id,
+    }));
+  },
 
-    const id = maxIdShowing >= maxIdUpComing ? maxIdShowing : maxIdUpComing;
-    id++;
-
+  // add Movie
+  async addMovie(movieData) {
     try {
-      await Movie.create({
-        id: id,
-        title: movie.title,
-        description: movie.description,
-        duration: movie.duration,
-        genre: movie.genre,
-        releaseDate: movie.releaseDate,
-        posterUrl: movie.posterUrl,
-        createdAt: movie.createdAt,
-        updatedAt: movie.updatedAt
-      });
-    }catch(e) {
-      print("===> ERROR: " + e);
+      const newMovie = await Movie.create(movieData);
+      return newMovie;
+    } catch (error) {
+      console.error('Error adding movie:', error);
+      throw error;
     }
   }
 };

@@ -24,12 +24,12 @@
           </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Vé đã đặt</a></li>
-            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+            <li><a class="dropdown-item" href="<%= MoviePaths.LOGOUT %>">Đăng xuất</a></li>
           </ul>
         </div>
         <% } else { %>
-        <a href="/login" class="btn mx-2 btn-primary">Đăng nhập</a>
-        <a href="/register" class="btn btn-outline-primary">Đăng ký</a>
+        <a href="<%= MoviePaths.LOGIN %>" class="btn mx-2 btn-primary">Đăng nhập</a>
+        <a href="<%= MoviePaths.REGISTER %>" class="btn btn-outline-primary">Đăng ký</a>
         <% } %>
       </div>
     </div>

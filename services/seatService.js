@@ -8,8 +8,8 @@ const { getAlphabetChar } = require("../utils/text");
 const priceService = require("./priceService");
 
 const seatService = {
-  async generateSeatsForHall({ seatRows, seatColumns, id }) {
-    const seatsBooked = await this.getSeatsBooked(id);
+  async generateSeatsForHall({ seatRows, seatColumns }, showtimeId) {
+    const seatsBooked = await this.getSeatsBooked(showtimeId);
     const prices = await priceService.getPrices();
     const seats = [];
 
@@ -36,10 +36,10 @@ const seatService = {
     return seats;
   },
 
-  async getSeatsBooked(hallId) {
+  async getSeatsBooked(showtimeId) {
     const seats = await Seat.findAll({
       where: {
-        cinemaHallId: hallId,
+        showtimeId,
         status: BOOKED,
       },
     });

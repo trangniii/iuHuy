@@ -1,3 +1,4 @@
+const MoviePaths = require("../constants/path");
 const PaymentMethod = require("../models/enum/PaymentMethod");
 const PaymentStatus = require("../models/enum/PaymentStatus");
 const SeatStatus = require("../models/enum/SeatStatus");
@@ -17,6 +18,7 @@ function globalLocals(req, res, next) {
     UserRole,
     PaymentStatus,
     PaymentMethod,
+    MoviePaths,
   };
   next();
 }
