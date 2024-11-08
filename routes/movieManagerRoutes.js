@@ -15,7 +15,7 @@ adminRouter.get("/test", (req, res) => {
   res.render("admin/dashboard", locals);
 });
 
-adminRouter.get("/managerment", async (req, res, next) => {
+adminRouter.get("/list-movies", async (req, res, next) => {
   const [nowMovies, upComingMovies] = await Promise.all([
     movieService.getNowShowingMovies(),
     movieService.getUpcomingMovies(),
@@ -63,7 +63,7 @@ adminRouter.post("/add", upload.single("selectedImage"), async (req, res, next) 
       };
 
       await movieService.addMovie(newMovieData);
-      res.redirect("/dashboard/managerment"); 
+      res.redirect("/dashboard/list-movies"); 
   } catch (error) {
       next(error);
   }
@@ -91,32 +91,28 @@ adminRouter.post("/delete-movie/:id", async (req, res, next) => {
 
     await movie.destroy();
 
-    res.redirect("/dashboard/managerment");
+    res.redirect("/dashboard/list-movies");
   } catch (error) {
     next(error);
   }
 });
 
 
-//Change Movie
 adminRouter.get("/change-movie/:id", async (req, res, next) => {
   const movieId = req.params.id;
 
   try {
-    // Tìm phim theo ID
     const movie = await Movie.findByPk(movieId);
     if (!movie) {
       return res.status(404).send("Movie not found");
     }
 
-    // Render trang chỉnh sửa với dữ liệu phim
     res.render("admin/changeMovie", { movie });
   } catch (error) {
     next(error);
   }
 });
 
-// const upload = multer({ dest: 'images/posters' });
 
 adminRouter.post("/update-movie/:id", upload.single("selectedImage"), async (req, res, next) => {
   const movieId = req.params.id;
@@ -137,10 +133,10 @@ adminRouter.post("/update-movie/:id", upload.single("selectedImage"), async (req
       duration,
       genre,
       releaseDate,
-      posterUrl: posterUrl || movie.posterUrl,  // Giữ nguyên poster nếu không có hình ảnh mới
+      posterUrl: posterUrl || movie.posterUrl,  
     });
 
-    res.redirect("/dashboard/managerment");  // Chuyển hướng về trang quản lý phim
+    res.redirect("/dashboard/list-movies"); 
   } catch (error) {
     next(error);
   }
