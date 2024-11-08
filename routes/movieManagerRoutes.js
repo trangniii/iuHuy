@@ -4,6 +4,7 @@ const hallRoutes = require("./hallRoutes");
 const path = require("path");
 const multer = require("multer");
 const Movie = require("../models/Movie");
+const { UPLOAD_DIR } = require("../constants/env");
 
 movieManagerRouter.use(hallRoutes);
 
@@ -14,7 +15,7 @@ movieManagerRouter.get("/test", (req, res) => {
   res.render("admin/dashboard", locals);
 });
 
-adminRouter.get("/managerment", async (req, res, next) => {
+movieManagerRouter.get("/management", async (req, res, next) => {
   const [nowMovies, upComingMovies] = await Promise.all([
     movieService.getNowShowingMovies(),
     movieService.getUpcomingMovies(),
@@ -34,7 +35,7 @@ adminRouter.get("/managerment", async (req, res, next) => {
 // add movie
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "images/posters"); // Lưu poster vào thư mục này (chỉnh lại nha, chớ kh biết lưu vào đâu h)
+    cb(null, UPLOAD_DIR + "/movies");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -64,8 +65,8 @@ movieManagerRouter.post(
       };
 
       await movieService.addMovie(newMovieData);
-      res.redirect("/dashboard/managerment"); 
-  } catch (error) {
+      res.redirect("/dashboard/management");
+    } catch (error) {
       next(error);
     }
   }
@@ -115,7 +116,6 @@ adminRouter.get("/change-movie/:id", async (req, res, next) => {
   }
 });
 
-
 movieManagerRouter.post(
   "/update-movie/:id",
   upload.single("selectedImage"),
@@ -131,20 +131,21 @@ movieManagerRouter.post(
         return res.status(404).send("Movie not found");
       }
 
-    // Cập nhật thông tin phim
-    await movie.update({
-      title,
-      description,
-      duration,
-      genre,
-      releaseDate,
-      posterUrl: posterUrl || movie.posterUrl,  // Giữ nguyên poster nếu không có hình ảnh mới
-    });
+      // Cập nhật thông tin phim
+      await movie.update({
+        title,
+        description,
+        duration,
+        genre,
+        releaseDate,
+        posterUrl: posterUrl || movie.posterUrl, // Giữ nguyên poster nếu không có hình ảnh mới
+      });
 
-    res.redirect("/dashboard/managerment");  // Chuyển hướng về trang quản lý phim
-  } catch (error) {
-    next(error);
+      res.redirect("/dashboard/management"); // Chuyển hướng về trang quản lý phim
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 module.exports = movieManagerRouter;
