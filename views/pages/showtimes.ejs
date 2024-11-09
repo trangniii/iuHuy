@@ -55,17 +55,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/showtimes/add" method="POST">
+          <form action="/showtimes/add/<%= movieId %>" method="POST">
             <div class="mb-3">
               <label for="movieId" class="form-label">Phim:</label>
-              <input disabled placeholder="<%= movieTitle %>" type="text" name="movieId" id="movieId" class="form-control" required />
+              <input disabled type="text" name="movieId" value="<%= movieTitle %>" id="movieId" class="form-control" />
             </div>
             <div class="mb-3">
               <label for="hall" class="form-label">Phòng chiếu:</label>
-              <select name="hall" id="hall" class="form-control" required>
-                <!-- <% halls.forEach(hall => { %>
-                  <option value="<%= hall.name %>"><%= hall.name %></option>
-                <% }); %> -->
+              <select name="cinemaHallId" id="hall" class="form-control" required>
                 <% halls.forEach((hall, index) => { %>
                   <option value="<%= hall.id %>"><%= hall.name %></option>
                 <% }) %>
