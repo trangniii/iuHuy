@@ -23,6 +23,11 @@ const hallService = {
     const seats = await seatService.generateSeatsForHall(hall);
     return new CinemaHallInfoDto({ ...hall, seats });
   },
+
+  async getAllHall() {
+    const halls = await CinemaHall.findAll();
+    return halls;
+  },
 };
 
 module.exports = hallService;

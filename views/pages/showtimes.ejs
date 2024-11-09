@@ -1,41 +1,86 @@
-<h1>Danh Sách Suất Chiếu</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Phim</th>
-      <th>Phòng Chiếu</th>
-      <th>Thời Gian Bắt Đầu</th>
-      <th>Thời Gian Kết Thúc</th>
-      <th>Thao Tác</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% showtimes.forEach(showtime => { %>
-    <tr>
-      <td><%= showtime.movieTitle %></td>
-      <td><%= showtime.hallName %></td>
-      <td><%= showtime.startTime %></td>
-      <td><%= showtime.endTime %></td>
-      <td>
-        <form action="/showtimes/delete/<%= showtime.id %>" method="POST">
-          <button type="submit">Xóa</button>
-        </form>
-        <a href="/showtimes/update/<%= showtime.id %>">Cập Nhật</a>
-      </td>
-    </tr>
-    <% }) %>
-  </tbody>
-</table>
+<div class="container my-5">
+  <h1 class="mb-4">Danh Sách Suất Chiếu</h1>
 
-<h2>Thêm Suất Chiếu Mới</h2>
-<form action="/showtimes/add" method="POST">
-  <label for="movieId">Phim:</label>
-  <input type="text" name="movieId" id="movieId" required />
-  <label for="cinemaHallId">Phòng Chiếu:</label>
-  <input type="text" name="cinemaHallId" id="cinemaHallId" required />
-  <label for="startTime">Thời Gian Bắt Đầu:</label>
-  <input type="datetime-local" name="startTime" id="startTime" required />
-  <label for="endTime">Thời Gian Kết Thúc:</label>
-  <input type="datetime-local" name="endTime" id="endTime" required />
-  <button type="submit">Thêm</button>
-</form>
+  <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addShowtimeModal">
+    Thêm Suất Chiếu
+  </button>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Suất chiếu</th>
+          <th>Phòng Chiếu</th>
+          <th>Thời Gian Bắt Đầu</th>
+          <th>Thời Gian Kết Thúc</th>
+          <th>Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% showtimes.forEach((showtime, index) => { %>
+        <tr>
+          <td><%= ++index %></td>
+          <td><%= showtime.CinemaHall.name %></td>
+          <td><%= showtime.startTime %></td>
+          <td><%= showtime.endTime %></td>
+          <td>
+            <div class="d-flex gap-2">
+              <a
+                href="/showtimes/update/<%= showtime.id %>"
+                class="btn btn-primary btn-sm"
+                >Cập Nhật</a
+              >
+              <form
+                action="/showtimes/delete/<%= showtime.id %>"
+                method="POST"
+                class="m-0"
+              >
+                <button type="submit" class="btn btn-danger btn-sm">
+                  Xóa suất chiếu
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="addShowtimeModal" tabindex="-1" aria-labelledby="addShowtimeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addShowtimeModalLabel">Thêm Suất Chiếu Mới</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/showtimes/add" method="POST">
+            <div class="mb-3">
+              <label for="movieId" class="form-label">Phim:</label>
+              <input disabled placeholder="" type="text" name="movieId" id="movieId" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="cinemaHallId" class="form-label">Phòng Chiếu:</label>
+              <select name="cinemaHallId" id="cinemaHallId" class="form-control" required>
+                <option value="">Chọn Phòng Chiếu</option>
+                <% halls.forEach(hall => { %>
+                  <option value="<%= hall.id %>"><%= hall.name %></option>
+                <% }); %>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="startTime" class="form-label">Thời Gian Bắt Đầu:</label>
+              <input type="datetime-local" name="startTime" id="startTime" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="endTime" class="form-label">Thời Gian Kết Thúc:</label>
+              <input type="datetime-local" name="endTime" id="endTime" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-success">Thêm</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,12 @@
-const showtimesRouter = express.Router();
 const showtimeService = require('../services/showtimesService');
+const showtimesRouter = require("express").Router();
 
 // Lấy danh sách suất chiếu
-showtimesRouter.get('/', async (req, res) => {
+showtimesRouter.get('/:id', async (req, res) => {
     try {
-        const showtimes = await showtimeService.getShowtimes();
+        const showtimes = await showtimeService.getShowtimesById(req.params.id);
         res.render('pages/showtimes', { showtimes });
+        // res.json(showtimes)
     } catch (error) {
         console.error("Lỗi khi lấy danh sách suất chiếu:", error);
         res.status(500).send("Lỗi server");
@@ -45,4 +46,4 @@ showtimesRouter.post('/update/:id', async (req, res) => {
     }
 });
 
-showtimesRouter.exports = router;
+module.exports = showtimesRouter;
