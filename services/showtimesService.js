@@ -7,7 +7,7 @@ const showtimeService = {
   // Lấy danh sách tất cả suất chiếu, sắp xếp theo thời gian bắt đầu
   async getShowtimesById(movieId) {
     const showtimes = await Showtime.findAll({
-      where: {movieId},
+      where: {movieId: movieId},
       include: [
         {
           model: Movie,
@@ -21,11 +21,7 @@ const showtimeService = {
       order: [["startTime", "ASC"]],
     });
 
-    const movieTitle = showtimes.length > 0 ? showtimes[0].Movie.title : null;
-
-    const halls = await hallService.getAllHall();
-    const newHalls = halls.map(hall => hall.name);
-    return {showtimes, halls: newHalls};
+    return showtimes;
   },
 
   // Thêm một suất chiếu mới

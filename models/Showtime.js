@@ -11,6 +11,7 @@ const Showtime = sequelize.define("Showtime", {
   movieId: { type: DataTypes.INTEGER, allowNull: false },
   cinemaHallId: { type: DataTypes.INTEGER, allowNull: false },
   startTime: { type: DataTypes.DATE, allowNull: false },
+  endTime: { type: DataTypes.DATE, allowNull: false },
 });
 
 module.exports = Showtime;

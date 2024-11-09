@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <h1 class="mb-4">Danh Sách Suất Chiếu</h1>
+  <h1 class="mb-4">Danh Sách Suất Chiếu: <%= movieTitle %></h1>
 
   <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addShowtimeModal">
     Thêm Suất Chiếu
@@ -58,15 +58,17 @@
           <form action="/showtimes/add" method="POST">
             <div class="mb-3">
               <label for="movieId" class="form-label">Phim:</label>
-              <input disabled placeholder="" type="text" name="movieId" id="movieId" class="form-control" required />
+              <input disabled placeholder="<%= movieTitle %>" type="text" name="movieId" id="movieId" class="form-control" required />
             </div>
             <div class="mb-3">
-              <label for="cinemaHallId" class="form-label">Phòng Chiếu:</label>
-              <select name="cinemaHallId" id="cinemaHallId" class="form-control" required>
-                <option value="">Chọn Phòng Chiếu</option>
-                <% halls.forEach(hall => { %>
+              <label for="hall" class="form-label">Phòng chiếu:</label>
+              <select name="hall" id="hall" class="form-control" required>
+                <!-- <% halls.forEach(hall => { %>
+                  <option value="<%= hall.name %>"><%= hall.name %></option>
+                <% }); %> -->
+                <% halls.forEach((hall, index) => { %>
                   <option value="<%= hall.id %>"><%= hall.name %></option>
-                <% }); %>
+                <% }) %>
               </select>
             </div>
             <div class="mb-3">

@@ -1,3 +1,4 @@
+const hallService = require('../services/hallService');
 const showtimeService = require('../services/showtimesService');
 const showtimesRouter = require("express").Router();
 
@@ -5,8 +6,9 @@ const showtimesRouter = require("express").Router();
 showtimesRouter.get('/:id', async (req, res) => {
     try {
         const showtimes = await showtimeService.getShowtimesById(req.params.id);
-        res.render('pages/showtimes', { showtimes });
-        // res.json(showtimes)
+        const movieTitle = showtimes.length > 0 ? showtimes[0].Movie.title : null;
+        const halls = await hallService.getAllHall()
+        res.render('pages/showtimes', { showtimes, movieTitle, halls });
     } catch (error) {
         console.error("Lỗi khi lấy danh sách suất chiếu:", error);
         res.status(500).send("Lỗi server");
