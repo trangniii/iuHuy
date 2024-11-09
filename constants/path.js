@@ -12,6 +12,7 @@ const MoviePaths = {
   ADMIN_ADD_PRICE: "/dashboard/addPriceSeats",
   ADMIN_UPDATE_PRICE: "/dashboard/updatePriceSeats",
   ADMIN_DELETE_PRICE: "/dashboard/deletePriceSeats",
+  ADMIN_MOVIE: "/dashboard/list-movies",
   // Generate path with params
 
   movieDetail(id) {

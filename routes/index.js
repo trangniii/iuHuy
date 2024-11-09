@@ -7,7 +7,6 @@ const paymentRouter = require("./paymentRoutes");
 const adminRouter = require("./adminRoutes");
 const router = express.Router();
 
-// Home Routes
 router.use(homeRouter);
 router.use(authRouter);
 router.use("/checkout", paymentRouter);
