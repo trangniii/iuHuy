@@ -42,7 +42,7 @@ movieManagerRouter.post(
     try {
       const { title, description, duration, genre, releaseDate } = req.body;
       const posterUrl = req.file
-        ? `/${UPLOAD_ROOT}/movies/${req.file.filename}`
+        ? `${UPLOAD_ROOT}/movies/${req.file.filename}`
         : "";
 
       const newMovieData = {
