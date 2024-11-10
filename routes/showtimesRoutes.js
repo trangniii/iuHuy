@@ -35,7 +35,7 @@ showtimesRouter.post('/add/:movieId', async (req, res) => {
 showtimesRouter.post('/delete/:id', async (req, res) => {
     try {
         await showtimeService.deleteShowtime(req.params.id);
-        res.redirect('/showtimes');
+        res.redirect('back');
     } catch (error) {
         console.error("Lỗi khi xóa suất chiếu:", error);
         res.status(500).send("Lỗi server");

@@ -2,6 +2,7 @@ const Showtime = require("../models/Showtime");
 const Movie = require("../models/Movie");
 const CinemaHall = require("../models/CinemaHall");
 const hallService = require("./hallService");
+const Ticket = require("../models/Ticket");
 
 const showtimeService = {
   // Lấy danh sách tất cả suất chiếu, sắp xếp theo thời gian bắt đầu

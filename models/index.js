@@ -14,7 +14,7 @@ function setupAssociations() {
   CinemaHall.hasMany(Showtime, { foreignKey: "cinemaHallId" });
   Movie.hasMany(Showtime, { foreignKey: "movieId" });
   Movie.hasMany(Revenue, { foreignKey: "movieId" });
-  Payment.belongsTo(Ticket, { foreignKey: "ticketId" });
+  Payment.belongsTo(Ticket, { foreignKey: "ticketId", onDelete: "CASCADE" });
   Revenue.belongsTo(Movie, { foreignKey: "movieId" });
   Seat.belongsTo(CinemaHall, { foreignKey: "cinemaHallId" });
   Seat.hasMany(Ticket, { foreignKey: "seatId" });
