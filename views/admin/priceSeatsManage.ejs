@@ -1,0 +1,31 @@
+<section class="container-md pt-4">
+  <h2>Quản lý giá vé</h2>
+  <div class="d-flex justify-content-end">
+  <a href="<%= MoviePaths.ADMIN_ADD_PRICE %>" class="btn btn-primary mb-3 mt-2">Thêm khoảng giá vé</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Số thứ tự</th>
+        <th scope="col">Hàng bắt đầu</th>
+        <th scope="col">Hàng kết thúc</th>
+        <th scope="col">Giá vé</th>
+        <th scope="col">Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% prices.forEach(price => { %>
+      <tr>
+        <th scope="row"><%= price.id %></th>
+        <td><%= price.startRow %></td>
+        <td><%= price.endRow %></td>
+        <td><%= price.price %></td>
+        <td><a href="/updatePriceSeats/<%= price.id %>" class="btn btn-primary">Sửa</a>
+          <a href="/deletePriceSeats/<%= price.id %>" class="btn btn-danger">Xóa</a>
+        </td>
+      </tr>
+      <% }) %>
+
+    </tbody>
+  </table>
+</section>

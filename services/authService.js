@@ -21,7 +21,7 @@ const auth = {
   async register(username, email, password) {
     const hasUser = await User.findOne({
       where: {
-        [Op.or]: [{ username }, { email }],
+        [Op.or]: [{ email }],
       },
     });
 

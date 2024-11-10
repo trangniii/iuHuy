@@ -10,7 +10,6 @@ class MovieInfoDto {
   startTime;
   constructor(movie = {}) {
     const { id, title, releaseDate, posterUrl, genre, url, Showtimes } = movie;
-    console.log("MovieInfoDto -> constructor -> movie", movie);
     Object.assign(this, {
       id,
       title,

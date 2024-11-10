@@ -11,4 +11,8 @@ module.exports = {
   DB_HOST: process.env.DB_HOST || "localhost",
   DB_DIALECT: process.env.DB_DIALECT || "mysql",
   DB_PORT: process.env.DB_PORT || 3306,
+
+  // File upload
+  UPLOAD_DIR: process.env.UPLOAD_DIR || "public/uploads",
+  UPLOAD_ROOT: process.env.UPLOAD_ROOT || "/uploads",
 };

@@ -1,3 +1,4 @@
+const { parseDateTime } = require("../../utils/utils");
 const CinemaHallDto = require("./CinemaHallDto");
 
 class SeatsInfoDto {
@@ -13,8 +14,14 @@ class SeatsInfoDto {
 class CinemaHallInfoDto extends CinemaHallDto {
   seats = [];
   constructor({ seats, ...info } = {}) {
-    super(info);
-    this.seats = seats.map((seat) => new SeatsInfoDto(seat));
+    super({});
+    this.seats = seats.map((row) => row.map((seat) => new SeatsInfoDto(seat)));
+    this.movieName = info.movieName;
+    this.startTime = info.startTime;
+    this.seatColumns = info.seatColumns;
+    this.seatRows = info.seatRows;
+    this.name = info.name;
+    this.id = info.id;
   }
 }
 

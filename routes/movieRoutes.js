@@ -1,4 +1,5 @@
 const movieService = require("../services/movieService");
+const { formatDateMonth } = require("../utils/utils");
 const movieRouter = require("express").Router();
 
 movieRouter.get("/:id", async (req, res, next) => {
@@ -15,8 +16,5 @@ movieRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-movieRouter.get("/checkout/:id", (req, res) => {
-  res.render("pages/checkout");
-});
 
 module.exports = movieRouter;
