@@ -13,7 +13,7 @@ adminRouter.use(priceRouter);
 
 adminRouter.use(movieManagerRoutes);
 
-adminRouter.get("/", (req, res) => {
+adminRouter.get("/dashboard", (req, res) => {
   const locals = {
     title: "Dashboard",
   };

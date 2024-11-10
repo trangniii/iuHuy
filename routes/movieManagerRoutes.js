@@ -5,6 +5,7 @@ const path = require("path");
 const multer = require("multer");
 const Movie = require("../models/Movie");
 const { UPLOAD_DIR, UPLOAD_ROOT } = require("../constants/env");
+const { ADMIN_MOVIE } = require("../constants/path");
 
 movieManagerRouter.use(hallRoutes);
 
@@ -55,7 +56,7 @@ movieManagerRouter.post(
       };
 
       await movieService.addMovie(newMovieData);
-      res.redirect("/dashboard/list-movies");
+      res.redirect(ADMIN_MOVIE);
     } catch (error) {
       next(error);
     }
@@ -87,7 +88,7 @@ movieManagerRouter.post("/delete-movie/:id", async (req, res, next) => {
 
     await movie.destroy();
 
-    res.redirect("/dashboard/list-movies");
+    res.redirect(ADMIN_MOVIE);
   } catch (error) {
     next(error);
   }
@@ -134,7 +135,7 @@ movieManagerRouter.post(
         posterUrl: posterUrl || movie.posterUrl, // Giữ nguyên poster nếu không có hình ảnh mới
       });
 
-      res.redirect("/dashboard/list-movies"); // Chuyển hướng về trang quản lý phim
+      res.redirect(ADMIN_MOVIE); // Chuyển hướng về trang quản lý phim
     } catch (error) {
       next(error);
     }

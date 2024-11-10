@@ -17,10 +17,10 @@
         </p>
       </div>
       <div class="ms-auto d-flex flex-column gap-2">
-        <form action="/dashboard/delete-movie/<%= movie.id %>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa phim này?');">
+        <form action="<%= MoviePaths.deleteMovie(movie.id) %>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa phim này?');">
           <button type="submit" class="btn btn-danger btn-sm">Delete</button>
         </form>
-        <a href="/dashboard/change-movie/<%= movie.id %>" class="btn btn-primary btn-sm">Change</a>
+        <a href="<%= MoviePaths.changeMovie(movie.id) %>" class="btn btn-primary btn-sm">Change</a>
       </div>
     </div>
   </div>

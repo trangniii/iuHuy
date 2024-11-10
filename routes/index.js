@@ -9,11 +9,9 @@ const router = express.Router();
 
 router.use(homeRouter);
 router.use(authRouter);
+router.use(adminRouter);
 router.use("/checkout", paymentRouter);
 router.use("/movies", movieRouter);
 router.use("/booking", bookingRouter);
-router.use(adminRouter);
-
-router.use("/dashboard", adminRouter);
 
 module.exports = router;

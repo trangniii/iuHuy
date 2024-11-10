@@ -7,12 +7,15 @@ const MoviePaths = {
   BOOKING: "/booking",
   LOGOUT: "/logout",
   DASHBOARD: "/dashboard",
-  ADMIN_HALLS: "/dashboard/halls",
-  ADMIN_PRICE: "/dashboard/priceSeatsManage",
-  ADMIN_ADD_PRICE: "/dashboard/addPriceSeats",
-  ADMIN_UPDATE_PRICE: "/dashboard/updatePriceSeats",
-  ADMIN_DELETE_PRICE: "/dashboard/deletePriceSeats",
-  ADMIN_MOVIE: "/dashboard/list-movies",
+  ADMIN_HALLS: "/halls",
+  ADMIN_PRICE: "/priceSeatsManage",
+  ADMIN_ADD_PRICE: "/addPriceSeats",
+  ADMIN_UPDATE_PRICE: "/updatePriceSeats",
+  ADMIN_DELETE_PRICE: "/deletePriceSeats",
+  ADMIN_MOVIE: "/list-movies",
+  ADMIN_UPDATE_MOVIE: "/change-movie",
+  ADMIN_ADD_MOVIE: "/add-movie",
+  ADMIN_DELETE_MOVIE: "/delete-movie",
   // Generate path with params
 
   movieDetail(id) {
@@ -33,6 +36,12 @@ const MoviePaths = {
   },
   updatePrice(id) {
     return `${this.ADMIN_UPDATE_PRICE}/${id}`;
+  },
+  changeMovie(id) {
+    return `${this.ADMIN_UPDATE_MOVIE}/${id}`;
+  },
+  deleteMovie(id) {
+    return `${this.ADMIN_MOVIE}/${id}`;
   },
 };
 
