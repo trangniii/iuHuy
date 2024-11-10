@@ -5,9 +5,10 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const router = require("./routes");
 const session = require("express-session");
-const { SESSION_SECRET } = require("./constants/env");
+const { SESSION_SECRET, UPLOAD_DIR } = require("./constants/env");
 const expressEjsLayouts = require("express-ejs-layouts");
 const globalLocals = require("./middlewares/globalLocals");
+const { createIfNotExists } = require("./utils/utils");
 
 const app = express();
 
@@ -55,6 +56,12 @@ app.use(function (err, req, res, next) {
   res.render("error", {
     layout: "layouts/non-header",
   });
+});
+
+const staticFolders = [UPLOAD_DIR, path.join(UPLOAD_DIR, "movies")];
+
+staticFolders.forEach((folder) => {
+  createIfNotExists(folder, "folder");
 });
 
 module.exports = app;

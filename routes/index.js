@@ -6,9 +6,10 @@ const bookingRouter = require("./bookingRoutes");
 const showtimesRouter = require("./showtimesRoutes");
 const router = express.Router();
 
-// Home Routes
 router.use(homeRouter);
 router.use(authRouter);
+router.use(adminRouter);
+router.use("/checkout", paymentRouter);
 router.use("/movies", movieRouter);
 router.use("/booking", bookingRouter);
 router.use("/showtimes", showtimesRouter);

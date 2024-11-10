@@ -1,0 +1,82 @@
+<div class="container pt-4">
+  <h2>Quản lý phòng chiếu</h2>
+  <div class="d-flex justify-content-end">
+  <button type="button" data-bs-target="#hallsModal" data-bs-toggle="modal" class="btn btn-primary js--add-btn">Thêm phòng chiếu</button>
+  </div>
+  <% if (locals.error) { %>
+    <div class="alert alert-danger mt-4" role="alert">
+      <%= error %>
+    </div>
+  <% } %>
+  <table class="table table-hover">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">#</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Số hàng ghế</th>
+        <th scope="col">Số cột ghế</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="js--table-body" >
+      <% if (halls.length === 0) { %>
+      <tr >
+        <td colspan="5" class="text-center" >Không có phòng chiếu nào</td>
+      </tr>
+      <% } %>
+     <% halls.forEach((hall) => { %>
+      <tr class="text-center" data-hall="<%= JSON.stringify(hall) %>" >
+        <th scope="row"><%= hall.id %></th>
+        <td><%= hall.name %></td>
+        <td><%= hall.seatRows %></td>
+        <td><%= hall.seatColumns %></td>
+        <td>
+          <button type="button" data-bs-target="#hallsModal" data-bs-toggle="modal" class="btn btn-primary js--edit-btn">Sửa</button>
+          <a href="<%= MoviePaths.ADMIN_HALLS %>/<%= hall.id %>/delete" type="button" class="btn btn-danger js--delete-btn">Xóa</a>
+        </td>
+      </tr> 
+     <% }) %> 
+    </tbody>
+  </table>
+
+<!-- Modal -->
+<div class="modal fade" id="hallsModal" tabindex="-1" aria-labelledby="hallsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 js--title" id="hallsModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="halls-form" class="needs-validation" novalidate="true">
+          <div class="form-group mb-1">
+              <label for="roomName" class="mb-2" >Tên phòng chiếu</label>
+              <input type="text" class="form-control" id="roomName" placeholder="Nhập tên phòng chiếu" required name="name" >
+              <div class="invalid-feedback">
+                  Vui lòng nhập tên phòng chiếu.
+              </div>
+          </div>
+          <div class="form-group mb-1">
+              <label for="rowNumber" class="mb-2">Số hàng ghế</label>
+              <input type="number" class="form-control" id="rowNumber" placeholder="Nhập số hàng ghế" min="1" max="10" required name="seatRows">
+              <div class="invalid-feedback">
+                  Vui lòng nhập số hàng ghế hợp lệ (tối thiểu là 1, tối đa là 10).
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="columnNumber" class="mb-2" >Số cột ghế</label>
+              <input type="number" class="form-control" id="columnNumber" placeholder="Nhập số cột ghế" min="1" max="10" required name="seatColumns">
+              <div class="invalid-feedback">
+                  Vui lòng nhập số cột ghế hợp lệ (tối thiểu là 1, tối đa là 10).
+              </div>
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="halls-form" class="btn btn-primary">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

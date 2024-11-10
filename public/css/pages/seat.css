@@ -1,0 +1,27 @@
+.seat-btn {
+    width: 50px;  /* Điều chỉnh chiều rộng theo nhu cầu của bạn */
+    height: 50px; /* Điều chỉnh chiều cao theo nhu cầu của bạn */
+    text-align: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+.legend-box {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+.booked {
+    background-color: #4d4d4d; /* Màu xám cho ghế đã đặt */
+    color: #ddd; /* Màu của dấu "X" */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.selected {
+    background-color: #5c9eff; /* Màu xanh cho ghế được chọn */
+}

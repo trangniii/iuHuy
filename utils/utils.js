@@ -1,4 +1,6 @@
 const { startOfWeek, endOfWeek } = require("date-fns");
+const fs = require("fs");
+const path = require("path");
 function getOffsetLimit(page, pageSize) {
   return {
     offset: (page - 1) * pageSize,
@@ -15,11 +17,12 @@ function getWeekStartEndDates() {
 
 function parseDateTime(dateTime) {
   const date = new Date(dateTime);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear().toString();
+  const hour = date.getHours().toString().padStart(2, "0");
+  const minute = date.getMinutes().toString().padStart(2, "0");
+
   return { day, month, year, hour, minute };
 }
 
@@ -40,10 +43,31 @@ function formatDuration(duration) {
   return `${hours}h ${minutes}m`;
 }
 
+function createIfNotExists(targetPath, type) {
+  const dirPath = path.dirname(targetPath);
+
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  if (type === "file") {
+    if (!fs.existsSync(targetPath)) {
+      fs.writeFileSync(targetPath, "");
+    }
+  } else if (type === "folder") {
+    if (!fs.existsSync(targetPath)) {
+      fs.mkdirSync(targetPath);
+    }
+  } else {
+    throw new Error("Type must be either 'file' or 'folder'");
+  }
+}
+
 module.exports = {
   getOffsetLimit,
   getWeekStartEndDates,
   parseDateTime,
   formatDateMonth,
   formatDuration,
+  createIfNotExists,
 };

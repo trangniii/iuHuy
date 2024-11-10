@@ -1,0 +1,11 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4">Danh Sách Phim</h2>
+  <div class="d-flex justify-content-end mb-3">
+    <a href="<%= MoviePaths.ADMIN_ADD_MOVIE %>" class="btn btn-primary">Add More Movie</a>
+  </div>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <% for( let i=0; i < allMovies.length; i++ ) { %>
+      <%- include('../components/movie-management-card', {movie: allMovies[i]}) %>
+        <% } %>
+  </div>
+</div>
