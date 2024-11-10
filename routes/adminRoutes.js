@@ -5,11 +5,13 @@ const mustAdmin = require("../middlewares/mustAdmin");
 const mustLogin = require("../middlewares/mustLogin");
 const hallRoutes = require("./hallRoutes");
 const priceRouter = require("./priceRoutes");
+const showtimesRouter = require("./showtimesRoutes");
 
 adminRouter.use(mustLogin, mustAdmin);
 
 adminRouter.use(hallRoutes);
 adminRouter.use(priceRouter);
+adminRouter.use(showtimesRouter);
 
 adminRouter.use(movieManagerRoutes);
 

@@ -3,21 +3,20 @@ const showtimeService = require('../services/showtimesService');
 const showtimesRouter = require("express").Router();
 
 // Lấy danh sách suất chiếu
-showtimesRouter.get('/:id', async (req, res) => {
+showtimesRouter.get('/showtimes/:id', async (req, res, next) => {
     try {
         const showtimes = await showtimeService.getShowtimesById(req.params.id);
         const movieId = showtimes.length > 0 ? showtimes[0].movieId : null;
         const movieTitle = showtimes.length > 0 ? showtimes[0].Movie.title : null;
         const halls = await hallService.getAllHall()
-        res.render('pages/showtimes', { showtimes, movieTitle, movieId, halls });
+        res.render('admin/showtimes', { showtimes, movieTitle, movieId, halls });
     } catch (error) {
-        console.error("Lỗi khi lấy danh sách suất chiếu:", error);
-        res.status(500).send("Lỗi server");
+        next(error);
     }
 });
 
 // Thêm suất chiếu mới
-showtimesRouter.post('/add/:movieId', async (req, res) => {
+showtimesRouter.post('/showtimes/add/:movieId', async (req, res, next) => {
     try {
         const data = {
             movieId: req.params.movieId,
@@ -26,30 +25,27 @@ showtimesRouter.post('/add/:movieId', async (req, res) => {
         await showtimeService.addShowtime(data);
         res.redirect("back");
     } catch (error) {
-        console.error("Lỗi khi thêm suất chiếu:", error);
-        res.status(500).send("Lỗi server");
+        next(error);
     }
 });
 
 // Xóa suất chiếu
-showtimesRouter.post('/delete/:id', async (req, res) => {
+showtimesRouter.post('/showtimes/delete/:id', async (req, res, next) => {
     try {
         await showtimeService.deleteShowtime(req.params.id);
         res.redirect('back');
     } catch (error) {
-        console.error("Lỗi khi xóa suất chiếu:", error);
-        res.status(500).send("Lỗi server");
+        next(error);
     }
 });
 
 // Cập nhật suất chiếu
-showtimesRouter.post('/update/:id', async (req, res) => {
+showtimesRouter.post('/showtimes/update/:id', async (req, res, next) => {
     try {
         await showtimeService.updateShowtime(req.params.id, req.body);
         res.redirect('back');
     } catch (error) {
-        console.error("Lỗi khi cập nhật suất chiếu:", error);
-        res.status(500).send("Lỗi server");
+        next(error);
     }
 });
 

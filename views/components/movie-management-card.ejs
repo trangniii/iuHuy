@@ -20,6 +20,7 @@
         <form action="<%= MoviePaths.deleteMovie(movie.id) %>" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa phim này?');">
           <button type="submit" class="btn btn-danger btn-sm">Delete</button>
         </form>
+        <a href="showtimes/<%= movie.id %>" class="btn btn-primary btn-sm">Quản lí suất chiếu</a>
         <a href="<%= MoviePaths.changeMovie(movie.id) %>" class="btn btn-primary btn-sm">Change</a>
       </div>
     </div>
