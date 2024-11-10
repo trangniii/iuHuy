@@ -20,32 +20,81 @@
         <tr>
           <td><%= ++index %></td>
           <td><%= showtime.CinemaHall.name %></td>
-          <td><%= showtime.startTime %></td>
-          <td><%= showtime.endTime %></td>
+          <td><%= showtime.startTime.toLocaleString() %></td>
+          <td><%= showtime.endTime.toLocaleString() %></td>
           <td>
-            <div class="d-flex gap-2">
-              <a
-                href="/showtimes/update/<%= showtime.id %>"
-                class="btn btn-primary btn-sm"
-                >Cập Nhật</a
-              >
-              <form
-                action="/showtimes/delete/<%= showtime.id %>"
-                method="POST"
-                class="m-0"
-              >
-                <button type="submit" class="btn btn-danger btn-sm">
-                  Xóa suất chiếu
-                </button>
-              </form>
+            <!-- Form update showtime -->
+            <div class="modal fade" id="updateShowtimeModal-<%= showtime.id %>" tabindex="-1" aria-labelledby="updateShowtimeModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="updateShowtimeModalLabel">Cập nhật Suất Chiếu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="/showtimes/update/<%= showtime.id %>" method="POST">
+                      <div class="mb-3">
+                        <label for="movieId" class="form-label">Phim:</label>
+                        <input disabled type="text" name="movieId" value="<%= movieTitle %>" id="movieId" class="form-control" />
+                      </div>
+                      <div class="mb-3">
+                        <label for="hall" class="form-label">Phòng chiếu:</label>
+                        <select name="cinemaHallId" id="hall" class="form-control" required>
+                          <% halls.forEach((hall) => { %>
+                          <option value="<%= hall.id %>" <%= hall.id === showtime.cinemaHallId ? 'selected' : '' %>><%= hall.name %></option>
+                          <% }) %>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="startTime" class="form-label">Thời Gian Bắt Đầu:</label>
+                        <input type="datetime-local" name="startTime" id="startTime" value="<%= showtime.startTime.toISOString().slice(0,16) %>" class="form-control" required />
+                      </div>
+                      <div class="mb-3">
+                        <label for="endTime" class="form-label">Thời Gian Kết Thúc:</label>
+                        <input type="datetime-local" name="endTime" id="endTime" value="<%= showtime.endTime.toISOString().slice(0,16) %>" class="form-control" required />
+                      </div>
+                      <button type="submit" class="btn btn-success">Cập nhật</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
+            <!-- Action Buttons -->
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateShowtimeModal-<%= showtime.id %>">
+                Cập nhật
+              </button>
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal-<%= showtime.id %>">
+                Xóa suất chiếu
+              </button>
+              <!-- Bootstrap Modal for Confirmation -->
+              <div class="modal fade" id="confirmDeleteModal-<%= showtime.id %>" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xóa</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Bạn có chắc chắn muốn xóa suất chiếu này không?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                      <!-- Delete Confirmation Button -->
+                      <form action="/showtimes/delete/<%= showtime.id %>" method="POST" id="deleteForm-<%= showtime.id %>">
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
           </td>
         </tr>
         <% }) %>
       </tbody>
+
     </table>
   </div>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="addShowtimeModal" tabindex="-1" aria-labelledby="addShowtimeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -64,7 +113,7 @@
               <label for="hall" class="form-label">Phòng chiếu:</label>
               <select name="cinemaHallId" id="hall" class="form-control" required>
                 <% halls.forEach((hall, index) => { %>
-                  <option value="<%= hall.id %>"><%= hall.name %></option>
+                <option value="<%= hall.id %>"><%= hall.name %></option>
                 <% }) %>
               </select>
             </div>

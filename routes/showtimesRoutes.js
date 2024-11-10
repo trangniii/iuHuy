@@ -46,7 +46,7 @@ showtimesRouter.post('/delete/:id', async (req, res) => {
 showtimesRouter.post('/update/:id', async (req, res) => {
     try {
         await showtimeService.updateShowtime(req.params.id, req.body);
-        res.redirect('/showtimes');
+        res.redirect('back');
     } catch (error) {
         console.error("Lỗi khi cập nhật suất chiếu:", error);
         res.status(500).send("Lỗi server");
