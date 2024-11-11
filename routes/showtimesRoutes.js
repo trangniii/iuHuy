@@ -1,15 +1,15 @@
 const hallService = require('../services/hallService');
+const movieService = require('../services/movieService');
 const showtimeService = require('../services/showtimesService');
 const showtimesRouter = require("express").Router();
 
 // Lấy danh sách suất chiếu
-showtimesRouter.get('/showtimes/:id', async (req, res, next) => {
+showtimesRouter.get('/showtimes/:movieid', async (req, res, next) => {
     try {
-        const showtimes = await showtimeService.getShowtimesById(req.params.id);
-        const movieId = showtimes.length > 0 ? showtimes[0].movieId : null;
-        const movieTitle = showtimes.length > 0 ? showtimes[0].Movie.title : null;
-        const halls = await hallService.getAllHall()
-        res.render('admin/showtimes', { showtimes, movieTitle, movieId, halls });
+        const showtimes = await showtimeService.getShowtimesById(req.params.movieid);
+        const halls = await hallService.getAllHall();
+        const movie = await movieService.getDetailOfMovie(req.params.movieid);
+        res.render('admin/showtimes', { showtimes, movie, halls });
     } catch (error) {
         next(error);
     }
