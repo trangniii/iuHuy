@@ -39,11 +39,7 @@ const showtimeService = {
     const showtimes = await this.getShowtimesOfHallId(data.cinemaHallId);
 
     showtimes.forEach(showtime => {
-      const start1Date = new Date(showtime.startTime);
-      const end1Date = new Date(showtime.endTime);
-      const start2Date = new Date(data.startTime);
-      const end2Date = new Date(data.endTime);
-      if (!areDateRangesNonOverlapping(start1Date, end1Date, start2Date, end2Date)) {
+      if (!areDateRangesNonOverlapping(showtime.startTime, showtime.endTime, data.startTime, data.endTime)) {
         throw new HttpError(BAD_REQUEST, "Trung lich chieu phim");
       }
     });
@@ -70,11 +66,7 @@ const showtimeService = {
     const showtimes = await this.getShowtimesOfHallId(data.cinemaHallId);
 
     showtimes.forEach(showtime => {
-      const start1Date = new Date(showtime.startTime);
-      const end1Date = new Date(showtime.endTime);
-      const start2Date = new Date(data.startTime);
-      const end2Date = new Date(data.endTime);
-      if (!areDateRangesNonOverlapping(start1Date, end1Date, start2Date, end2Date)) {
+      if (!areDateRangesNonOverlapping(showtime.startTime, showtime.endTime, data.startTime, data.endTime)) {
         throw new HttpError(BAD_REQUEST, "Trung lich chieu phim");
       }
     });

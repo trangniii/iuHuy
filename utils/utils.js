@@ -64,7 +64,11 @@ function createIfNotExists(targetPath, type) {
 }
 
 function areDateRangesNonOverlapping(start1, end1, start2, end2) {
-  return end1 <= start2 || end2 <= start1;
+  const start1Date = new Date(start1);
+  const end1Date = new Date(end1);
+  const start2Date = new Date(start2);
+  const end2Date = new Date(end2);
+  return end1Date <= start2Date || end2Date <= start1Date;
 }
 
 module.exports = {
