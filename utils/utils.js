@@ -63,6 +63,10 @@ function createIfNotExists(targetPath, type) {
   }
 }
 
+function areDateRangesNonOverlapping(start1, end1, start2, end2) {
+  return end1 <= start2 || end2 <= start1;
+}
+
 module.exports = {
   getOffsetLimit,
   getWeekStartEndDates,
@@ -70,4 +74,5 @@ module.exports = {
   formatDateMonth,
   formatDuration,
   createIfNotExists,
+  areDateRangesNonOverlapping
 };

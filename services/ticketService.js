@@ -10,7 +10,6 @@ const User = require("../models/User");
 const paymentService = require("./paymentService");
 const priceService = require("./priceService");
 const seatService = require("./seatService");
-const showtimeService = require("./showtimeService");
 
 const ticketService = {
   async createTicket({ userId, showtimeId, seatId, price, paymentId }) {
